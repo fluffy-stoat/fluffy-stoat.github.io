@@ -1,0 +1,127 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 1610691 */
+  src: url('iconfont.woff2?t=1625811438032') format('woff2'),
+       url('iconfont.woff?t=1625811438032') format('woff'),
+       url('iconfont.ttf?t=1625811438032') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-tag:before {
+  content: "\e6b4";
+}
+
+.icon-favorite:before {
+  content: "\e670";
+}
+
+.icon-explain:before {
+  content: "\e66e";
+}
+
+.icon-folder-close:before {
+  content: "\e671";
+}
+
+.icon-user:before {
+  content: "\e682";
+}
+
+.icon-work:before {
+  content: "\e683";
+}
+
+.icon-folder-filling:before {
+  content: "\e68b";
+}
+
+.icon-menu1:before {
+  content: "\e677";
+}
+
+.icon-arrow-right-circle:before {
+  content: "\e665";
+}
+
+.icon-arrow-left-circle:before {
+  content: "\e666";
+}
+
+.icon-discount:before {
+  content: "\e66d";
+}
+
+.icon-history:before {
+  content: "\e674";
+}
+
+.icon-lock:before {
+  content: "\e676";
+}
+
+.icon-text:before {
+  content: "\e680";
+}
+
+.icon-time:before {
+  content: "\e681";
+}
+
+.icon-email:before {
+  content: "\e609";
+}
+
+.icon-codeforces:before {
+  content: "\e657";
+}
+
+.icon-github:before {
+  content: "\e6f6";
+}
+
+.icon-jiantouyou:before {
+  content: "\e61a";
+}
+
+.icon-baseline-close-px:before {
+  content: "\e615";
+}
+
+.icon-search:before {
+  content: "\e73c";
+}
+
+.icon-folder:before {
+  content: "\e68a";
+}
+
+.icon-Back:before {
+  content: "\e623";
+}
+
+.icon-comment:before {
+  content: "\e66f";
+}
+
+.icon-eye:before {
+  content: "\e6e0";
+}
+
+.icon-sunfill:before {
+  content: "\e876";
+}
+
+.icon-moonbyueliang:before {
+  content: "\e6a0";
+}
+
+.icon-arrowup:before {
+  content: "\e612";
+}
+
