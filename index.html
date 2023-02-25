@@ -99,178 +99,64 @@
 </header>
 
     <main class="main">
-      <style>
-  #comment-record-list p {
-    color: var(--valine-par-color) !important;
-  }
-  #comment-record-list .vhead span {
-    font-size: 0.875em;
-  }
-  #comment-record-list .vhead span.sep {
-    margin-right: 0.2em;
-  }
-  .comment-count {
-    text-align: center;
-    font-size: 1.2em;
-  }
-</style>
-
-<article class="post archive">
-  <h1 class="page-title">评论列表</h1>
-
-  <div class="comment-count">
-    <p>共 <span id="comment-count">0</span> 条评论</p>
+      <div class="index-title">
+  <div class="index-banner">
+    <h1>任其心头千般恨，不做负心人</h1>
+    
   </div>
-
-  <div class="v" data-class="v">
-    <div id="comment-record-list" class="vcards"><p>Loading...</p></div>
-  </div>
-
-  <div id="vcomments" style="display: none"></div>
-</article>
-
-<div>
-  <nav class="page-nav">
-    <a class="extend next" rel="next" id="cprev-btn">
-      <span class="iconfont icon-arrow-left-circle"></span>
-    </a>
-    <span
-      >第 <span class="page-num"></span> 页，共
-      <span class="page-tot"></span> 页</span
-    >
-    <a class="extend next" rel="next" id="cnext-btn">
-      <span class="iconfont icon-arrow-right-circle"></span>
-    </a>
-  </nav>
 </div>
 
-<script id="comment-record-template" type="text/html">
-  <div class="vcard" id="">
-    <img
-      class="vimg"
-      src="https://gravatar.loli.net/avatar/{{ gravatar_hash }}?d=retro&amp;v=1.4.14"
-    />
-    <div class="vh">
-      <div class="vhead">
-        <span class="vnick">{{ nick }}</span>
-        <span class="sep">评论于</span>
-        <span class="post-url"
-          ><a href="{{ post_meta.path }}" target="_blank"
-            >{{ post_meta.title }}</a
-          ></span
-        >
-      </div>
-      <div class="vmeta">
-        <span class="vtime">{{ createdAt }}</span>
-      </div>
-      <div class="vcontent">{{ comment }}</div>
-    </div>
+
+  <div class="index-section-title">
+    <h2>最近更新</h2>
   </div>
-</script>
+  <section class="recently-updated archive">
+    
+  
+<div class="item-list post-list">
+  
+    
+    <div class="post-meta-card">
+  <div class="post-meta-title">
+    <a href="/2023/02/25/a/" target="">
+      a
+    </a>
+  </div>
+  <div class="post-meta-data">
+    <div class="post-meta-time">
+      <span class="post-updated-time"><span class="meta-icon iconfont icon-time"></span><time datetime="2023-02-25T02:24:10.151Z" title="更新于 2023年2月25日星期六上午10点24分 (CST+08:00)">
+        <span class="month">2月</span>
+        <span class="day">25日</span>
+        <span class="time">10:24</span>
+      </time></span>
+      
+    </div>
+    
+  </div>
+</div>
+  
+</div>
 
-<script id="valine-path-data" type="text/json">
-  [{"title":"a","valine_path":"/2023/02/25/a/","path":"http://example.com/2023/02/25/a/"}]
-</script>
+  </section>
 
-<script type="text/javascript">
-  var page = 1,
-    per_page = 10;
 
-  const valine_paths = JSON.parse(
-    document.getElementById("valine-path-data").innerHTML
-  );
-  const template = document.getElementById("comment-record-template").innerHTML;
-  const dest = document.getElementById("comment-record-list");
-  const oCount = document.getElementById("comment-count");
-  const oPrev = document.getElementById("cprev-btn");
-  const oNext = document.getElementById("cnext-btn");
-  const oPageNum = document.querySelector(".page-num");
-  const oPageTot = document.querySelector(".page-tot");
 
-  load();
+  <div class="index-section-title">
+    <h2>推荐文章</h2>
+  </div>
+  <section class="recommend archive">
+    
+  
+<div class="item-list post-list">
+  
+</div>
 
-  function load() {
-    document.addEventListener("global_function_mounted", function () {
-      new Valine({ el: "#vcomments" });
-      AV.init({
-        appId: "",
-        appKey: "",
-      });
-      dest.innerHTML += "<p>Leancloud Storage loaded...</p>";
-      const query = new AV.Query("Comment").descending("createdAt");
-      query.count().then((count) => {
-        oCount.innerHTML = count;
+  </section>
 
-        oPrev.addEventListener("click", function () {
-          if (page > 1) {
-            --page;
-            loadList();
-          }
-        });
-        oNext.addEventListener("click", function () {
-          if (page * per_page < count) {
-            ++page;
-            loadList();
-          }
-        });
-        oPageTot.innerHTML = Math.ceil(count / per_page);
-      });
 
-      loadList(page);
-
-      function loadList() {
-        query
-          .skip((page - 1) * per_page)
-          .limit(per_page)
-          .find()
-          .then((list) => {
-            dest.innerHTML += "<p>Parsing data...</p>";
-            return list;
-          })
-          .then((list) => list.map((data) => data.toFullJSON()))
-          .then((list) =>
-            list.map((data) =>
-              Object.assign({}, data, {
-                gravatar_hash: data.mail
-                  ? window.md5(data.mail.trim().toLowerCase())
-                  : undefined,
-                post_meta: Object.assign(
-                  {
-                    title: "Unknown Post",
-                    path: "",
-                  },
-                  valine_paths.find((e) => e.valine_path === data.url) || {}
-                ),
-              })
-            )
-          )
-          .then((data) => {
-            renderCommentRecords(data);
-            oPageNum.innerHTML = page;
-          });
-      }
-    });
-  }
-  function renderCommentRecords(data) {
-    dest.innerHTML = data
-      .map((record) => template_render(template, record))
-      .join("");
-  }
-
-  function template_render(template, config) {
-    return template.replace(/{{(.*?)}}/g, ($, $1) => {
-      const chain = $1.trim().split(".");
-      return chain.reduce((obj, key) => {
-        if (obj instanceof Object) return obj[key];
-        return undefined;
-      }, config) || "";
-    });
-  }
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.11.1/dist/av-min.js "></script>
-<script src="https://cdn.jsdelivr.net/npm/valine"></script>
-
+<div class="more-articles">
+  <a href="/archives">更多文章</a>
+</div>
     </main>
   </body>
   <div class="side-button">
@@ -336,5 +222,45 @@
 <script src="https://pv.sohu.com/cityjson?ie=utf-8.js" defer></script>
 
 
+
+  <script type="text/javascript">
+    loadComments();
+    function loadComments() {
+      if (typeof Valine === 'undefined') {
+        var getScript = (options) => {
+          var script = document.createElement('script');
+          script.defer = true;
+          script.crossOrigin = 'anonymous';
+          Object.keys(options).forEach((key) => {
+            script[key] = options[key];
+          });
+          document.body.appendChild(script);
+        };
+        getScript({
+          src: 'https://cdn.jsdelivr.net/npm/valine',
+          onload: function () {
+            newValine();
+          }
+        });
+      } else {
+        newValine();
+      }
+    }
+    function newValine() {
+      if (valine_path[valine_path.length - 1] != '\/') valine_path = valine_path + '\/';
+      new Valine({
+        el: '#vcomments',
+        appId: '',
+        appKey: '',
+        placeholder: '',
+        serverURLs: '',
+        visitor: true,
+        recordIP: true,
+        requiredFields: ['nick', 'mail'],
+        avatar: 'retro',
+        path: valine_path
+      });
+    }
+  </script>
 
 </html>
