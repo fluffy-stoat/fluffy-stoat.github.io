@@ -105,12 +105,12 @@
   </div>
   <div class="post-meta">
   <div class="post-info">
-    <span class="post-info-item post-time" title="2023年2月26日星期日上午10点48分 (CST+08:00)">
-      <span class="info-icon iconfont icon-time"></span>更新于 2023年2月26日
+    <span class="post-info-item post-time" title="2023年3月29日星期三晚上9点15分 (CST+08:00)">
+      <span class="info-icon iconfont icon-time"></span>更新于 2023年3月29日
     </span>
     
       <span class="icon infosep"></span><span class="post-info-item post-wordcount">
-        <span class="info-icon iconfont icon-text"></span>约 765 字
+        <span class="info-icon iconfont icon-text"></span>约 824 字
       </span>
     
     
@@ -148,14 +148,14 @@
        style="font-size: 1em;padding-right: 5px;"></span
       >文章目录</h2>
     <div class="toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">FFT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#蝶形变换"><span class="toc-number">1.1.</span> <span class="toc-text">蝶形变换</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#fft"><span class="toc-number">1.</span> <span class="toc-text">FFT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#蝶形变换"><span class="toc-number">1.1.</span> <span class="toc-text">蝶形变换</span></a></li></ol></li></ol>
     </div>
     <hr />
   </div>
 
 
   <div class="post-content">
-    <h1>FFT</h1>
+    <h2 id="fft">FFT</h2>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zwfymqz/p/8244902.html">大佬博客</a><br>
 基本的东西在这里面都比较全，解释一下一些可能的疑点：</p>
 <ol>
@@ -164,7 +164,7 @@
 <li>之所以每一层出来出来的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>w</mi><mi>n</mi><mi>k</mi></msubsup></mrow><annotation encoding="application/x-tex">w^k_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.096108em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-2.4530000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span>所属的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>会不一样，其实是因为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>w</mi><mi>n</mi><mrow><mn>2</mn><mi>k</mi></mrow></msubsup><mo>=</mo><msubsup><mi>w</mi><mfrac><mi>n</mi><mn>2</mn></mfrac><mi>k</mi></msubsup></mrow><annotation encoding="application/x-tex">w^{2k}_n=w^k_{\frac{n}{2}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.096108em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-2.4530000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.3709879999999999em;vertical-align:-0.5218799999999999em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-2.7189200000000002em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6915428571428572em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span><span style="top:-3.363em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.5218799999999999em;"><span></span></span></span></span></span></span></span></span></span> ，类似于快速幂的思想，按下标奇偶分着算到最后凑出来的数将会是对的</li>
 <li>附加的e~，感觉上来说，FT和DFT唯一的关系就在于FT对于正弦波向其出现程度的转化和出现程度逆转化回正弦波就如同DFT中对多项式的系数与点值表示法的相互转换，而FFT则是利用了一些特殊性质进行二分优化</li>
 </ol>
-<h2 id="蝶形变换">蝶形变换</h2>
+<h3 id="蝶形变换">蝶形变换</h3>
 <p>我觉得还是精讲一下蝶形变换吧，毕竟这个玩意还是有一点点难想。</p>
 <p>蝶形变换，就是为了解决二进制反转后序号的问题，即把每一个数转换成二进制形态，再完全反转过来，按得到的数值重排。</p>
 <p>其实不要把蝶形变换看的很难就导致想到一些稀奇古怪的做法，事实上，他利用的更多是一种递推。</p>
@@ -181,6 +181,10 @@
   <div class="post-history-list"><ol reversed>
     
       <li class="post-history-item">
+        2023年3月29日 第2次修订 
+      </li>
+    
+      <li class="post-history-item">
         2023年2月26日 创建文章 
       </li>
      
@@ -188,6 +192,13 @@
 
   <div class="post-footer">
   <hr>
+  
+    <div class="next-post">
+      <span class="iconfont icon-arrow-left-circle"></span> 
+      <a target="_blank" rel="noopener" href="//d-2-26/">
+        2-26
+      </a>
+    </div>
   
   
     <div class="prev-post">
@@ -227,7 +238,7 @@
 
   
     <span class="post-wordcount iconfont icon-text"></span>
-    全站约 3,233 字
+    全站约 7,020 字
   
 
   <div class="license" style="padding: 0 10px;">
