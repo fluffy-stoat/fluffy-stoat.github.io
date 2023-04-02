@@ -8,13 +8,13 @@
   <meta name="keywords" content="">
   <meta name="description" content="Ov-">
   <meta name="generator" content="Hexo 6.3.0">
-  <title>dp优化 - fluffy-stoat&#39;s Notes</title>
+  <title>四边形不等式优化 - fluffy-stoat&#39;s Notes</title>
   <link rel="shortcut icon" href="/images/favicon.ico" />
   
-<link rel="stylesheet" href="/css/ssimple.css?20230329.css">
+<link rel="stylesheet" href="/css/ssimple.css?20230402.css">
 
   
-<link rel="stylesheet" href="/iconfont/iconfont.css?20230329.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css?20230402.css">
 
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
@@ -111,16 +111,16 @@
     <main class="main">
       <article class="post">
   <div class="post-title">
-    <h1 class="page-title">dp优化</h1>
+    <h1 class="page-title">四边形不等式优化</h1>
   </div>
   <div class="post-meta">
   <div class="post-info">
-    <span class="post-info-item post-time" title="2023年3月29日星期三晚上9点55分 (CST+08:00)">
-      <span class="info-icon iconfont icon-time"></span>更新于 2023年3月29日
+    <span class="post-info-item post-time" title="2023年4月2日星期日上午11点08分 (CST+08:00)">
+      <span class="info-icon iconfont icon-time"></span>更新于 2023年4月2日
     </span>
     
       <span class="icon infosep"></span><span class="post-info-item post-wordcount">
-        <span class="info-icon iconfont icon-text"></span>约 1,622 字
+        <span class="info-icon iconfont icon-text"></span>约 1,606 字
       </span>
     
     
@@ -158,7 +158,7 @@
        style="font-size: 1em;padding-right: 5px;"></span
       >文章目录</h2>
     <div class="toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#四边形不等式与蒙日矩阵"><span class="toc-number">1.</span> <span class="toc-text">四边形不等式与蒙日矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1d-1d-dp的优化"><span class="toc-number">1.1.</span> <span class="toc-text">1D&#x2F;1D dp的优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2d-1d-dp的优化"><span class="toc-number">1.2.</span> <span class="toc-text">2D&#x2F;1D dp的优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">1.3.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#斜率优化"><span class="toc-number">2.</span> <span class="toc-text">斜率优化</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#四边形不等式与蒙日矩阵"><span class="toc-number">1.</span> <span class="toc-text">四边形不等式与蒙日矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1d-1d-dp的优化"><span class="toc-number">1.1.</span> <span class="toc-text">1D&#x2F;1D dp的优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2d-1d-dp的优化"><span class="toc-number">1.2.</span> <span class="toc-text">2D&#x2F;1D dp的优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">1.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
     </div>
     <hr />
   </div>
@@ -217,8 +217,6 @@
 <p>区间包含单调性：若对于任意的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mo>≤</mo><msup><mi>l</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo>≤</mo><msup><mi>r</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo>≤</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">l\le l&#x27;\le r&#x27;\le r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83041em;vertical-align:-0.13597em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.887862em;vertical-align:-0.13597em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.887862em;vertical-align:-0.13597em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> ，满足 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mrow><msup><mi>l</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo separator="true">,</mo><msup><mi>r</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mrow></msub><mo>≤</mo><msub><mi>w</mi><mrow><mi>l</mi><mo separator="true">,</mo><mi>r</mi></mrow></msub></mrow><annotation encoding="application/x-tex">w_{l&#x27;,r&#x27;}\le w_{l,r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.922078em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6828285714285715em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct mtight">,</span><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6828285714285715em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> 则称 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mrow><mi>l</mi><mo separator="true">,</mo><mi>r</mi></mrow></msub></mrow><annotation encoding="application/x-tex">w_{l,r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> 满足区间包含单调性。</p>
 <h3 id="总结">总结</h3>
 <p>其实我们真正在使用四边形不等式优化的时候，首先是要想到他最开始的状态转移方程，由于很有可能有多种非正解的设计方式，所以我们其实应该不止揪着一种去想他的优化~~（头够铁也未必不行）<s>，多设计几种，看看那种类似我们提到过的模型，再试一试证明它的取值函数满足四边形不等式</s>（哪怕是打个表看看是否满足决策单调性）~~，如果可以，而时间复杂度又符合，那肯定就做完了<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mi>w</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">qwq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span></p>
-<h2 id="斜率优化">斜率优化</h2>
-<p><s>相比斜率，凸壳优化这个名字比较高端</s></p>
 
   </div>
   
@@ -227,7 +225,7 @@
   <div class="post-history-list"><ol reversed>
     
       <li class="post-history-item">
-        2023年3月29日 创建文章 
+        2023年4月2日 创建文章 
       </li>
      
   </ol></div>
@@ -242,6 +240,13 @@
       </a>
     </div>
   
+  
+    <div class="prev-post">
+      <a href="/2023/04/02/数学/中国剩余定理/">
+        中国剩余定理
+      </a> 
+      <span class="iconfont icon-arrow-right-circle"></span>
+    </div>
   
 </div>
 </article>
@@ -273,7 +278,7 @@
 
   
     <span class="post-wordcount iconfont icon-text"></span>
-    全站约 0 字
+    全站约 11,209 字
   
 
   <div class="license" style="padding: 0 10px;">
@@ -301,7 +306,7 @@
 
   
   
-<script src="/js/ssimple.js?20230329.js"></script>
+<script src="/js/ssimple.js?20230402.js"></script>
 <script src="https://pv.sohu.com/cityjson?ie=utf-8.js" defer></script>
 
 
