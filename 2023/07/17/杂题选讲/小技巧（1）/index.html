@@ -11,10 +11,10 @@
   <title>小技巧（1） - fluffy-stoat&#39;s Notes</title>
   <link rel="shortcut icon" href="/images/favicon.ico" />
   
-<link rel="stylesheet" href="/css/ssimple.css?20230716.css">
+<link rel="stylesheet" href="/css/ssimple.css?20230717.css">
 
   
-<link rel="stylesheet" href="/iconfont/iconfont.css?20230716.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css?20230717.css">
 
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
@@ -115,12 +115,12 @@
   </div>
   <div class="post-meta">
   <div class="post-info">
-    <span class="post-info-item post-time" title="2023年7月16日星期日晚上8点07分 (CST+08:00)">
-      <span class="info-icon iconfont icon-time"></span>更新于 2023年7月16日
+    <span class="post-info-item post-time" title="2023年7月17日星期一晚上10点23分 (CST+08:00)">
+      <span class="info-icon iconfont icon-time"></span>更新于 2023年7月17日
     </span>
     
       <span class="icon infosep"></span><span class="post-info-item post-wordcount">
-        <span class="info-icon iconfont icon-text"></span>约 1,076 字
+        <span class="info-icon iconfont icon-text"></span>约 1,267 字
       </span>
     
     
@@ -182,13 +182,17 @@
 <p>给定一棵树，节点有编号，给最大边数，求连续编号在同一边数不超过最大边数的联通块的最多连续编号数量。</p>
 <p>考虑尺取法，即一个一个点加入联通块，记录<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>n</mi><mi>s</mi><mo>=</mo><mtext>总边数</mtext><mo>∗</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">ans=总边数*2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">总</span><span class="mord cjk_fallback">边</span><span class="mord cjk_fallback">数</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>的值，加入时选新加点<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">u</span></span></span></span>在树上DFN序的前驱和后继（最后与最前互为前驱和后继），<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>n</mi><mi>s</mi><mo>+</mo><mo>=</mo><mi>D</mi><mi>i</mi><msub><mi>s</mi><mrow><mi>p</mi><mi>r</mi><mi>e</mi><mo separator="true">,</mo><mi>u</mi></mrow></msub><mo>+</mo><mi>D</mi><mi>i</mi><msub><mi>s</mi><mrow><mi>u</mi><mo separator="true">,</mo><mi>n</mi><mi>x</mi><mi>t</mi></mrow></msub><mo>−</mo><mi>D</mi><mi>i</mi><msub><mi>s</mi><mrow><mi>p</mi><mi>r</mi><mi>e</mi><mo separator="true">,</mo><mi>n</mi><mi>x</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">ans+=Dis_{pre,u}+Dis_{u,nxt}-Dis_{pre,nxt}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mord">+</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">e</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">u</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.28055599999999997em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">u</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight">x</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord mathdefault">i</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.28055599999999997em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">e</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight">x</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>，除去点时同理只需把符号反转，ans为总边数*2的性质依然成立。</p>
 <p>正确性？</p>
-<p>分类讨论：若u</p>
+<p>dfs时它走的顺序都是“前-x-后”，那它自然不会重复加一段已经加两遍且没被删一次的边（图为错误示范，即从已有红点选中绿点的并非黄点DFN序的前驱和后继，红边为原有加入的边，紫边为删掉的边，灰边为新加的边，棕边为重复加的边）<img src="image/%E5%B0%8F%E6%8A%80%E5%B7%A7%EF%BC%881%EF%BC%89/1689517965298.png" alt="1689517965298"></p>
 
   </div>
   
   <hr>
   <h3><span class="iconfont icon-history" style="padding-right: 5px;font-size: 1em;"></span>修订记录</h3>
   <div class="post-history-list"><ol reversed>
+    
+      <li class="post-history-item">
+        2023年7月17日 第2次修订 
+      </li>
     
       <li class="post-history-item">
         2023年7月16日 创建文章 
@@ -206,6 +210,13 @@
       </a>
     </div>
   
+  
+    <div class="prev-post">
+      <a href="/2023/07/17/杂题选讲/小技巧（2）/">
+        小技巧（2）
+      </a> 
+      <span class="iconfont icon-arrow-right-circle"></span>
+    </div>
   
 </div>
 </article>
@@ -237,7 +248,7 @@
 
   
     <span class="post-wordcount iconfont icon-text"></span>
-    全站约 15,244 字
+    全站约 16,841 字
   
 
   <div class="license" style="padding: 0 10px;">
@@ -265,7 +276,7 @@
 
   
   
-<script src="/js/ssimple.js?20230716.js"></script>
+<script src="/js/ssimple.js?20230717.js"></script>
 <script src="https://pv.sohu.com/cityjson?ie=utf-8.js" defer></script>
 
 
