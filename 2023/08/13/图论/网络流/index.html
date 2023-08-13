@@ -8,13 +8,13 @@
   <meta name="keywords" content="">
   <meta name="description" content="Ov-">
   <meta name="generator" content="Hexo 6.3.0">
-  <title>连通性专题 - fluffy-stoat&#39;s Notes</title>
+  <title>网络流 - fluffy-stoat&#39;s Notes</title>
   <link rel="shortcut icon" href="/images/favicon.ico" />
   
-<link rel="stylesheet" href="/css/ssimple.css?20230811.css">
+<link rel="stylesheet" href="/css/ssimple.css?20230813.css">
 
   
-<link rel="stylesheet" href="/iconfont/iconfont.css?20230811.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css?20230813.css">
 
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
@@ -111,16 +111,16 @@
     <main class="main">
       <article class="post">
   <div class="post-title">
-    <h1 class="page-title">连通性专题</h1>
+    <h1 class="page-title">网络流</h1>
   </div>
   <div class="post-meta">
   <div class="post-info">
-    <span class="post-info-item post-time" title="2023年8月11日星期五凌晨12点10分 (CST+08:00)">
-      <span class="info-icon iconfont icon-time"></span>更新于 2023年8月11日
+    <span class="post-info-item post-time" title="2023年8月13日星期日晚上11点58分 (CST+08:00)">
+      <span class="info-icon iconfont icon-time"></span>更新于 2023年8月13日
     </span>
     
       <span class="icon infosep"></span><span class="post-info-item post-wordcount">
-        <span class="info-icon iconfont icon-text"></span>约 792 字
+        <span class="info-icon iconfont icon-text"></span>约 109 字
       </span>
     
     
@@ -149,57 +149,9 @@
 </div>
    
 
-  
-    <div class="toc">
-  
-    <h2 class="toc-title">
-      <span
-       class="iconfont icon-explain" 
-       style="font-size: 1em;padding-right: 5px;"></span
-      >文章目录</h2>
-    <div class="toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#强连通分量"><span class="toc-number">1.</span> <span class="toc-text">强连通分量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是强连通分量"><span class="toc-number">1.1.</span> <span class="toc-text">什么是强连通分量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#怎么求？"><span class="toc-number">1.2.</span> <span class="toc-text">怎么求？</span></a></li></ol></li></ol>
-    </div>
-    <hr />
-  </div>
-
 
   <div class="post-content">
-    <p><em>前情提要（说给自己的）：别tm再害怕写这玩意了，又不难，码量小，你自己已经写了多少回了自己没数吗，难调吗？不吧。</em><br>
-<strong>前情提要（内容的）： dfn 和 low 数组将对Tarjan产生重大影响，所以此处重申这俩的含义—— dfn 是每个点第一次被遍历的顺序， low 是每个点跳一次返祖边能到的最小 dfn</strong></p>
-<h2 id="强连通分量">强连通分量</h2>
-<h3 id="什么是强连通分量">什么是强连通分量</h3>
-<p>就是有向图上，从任意点开始都能重复相互到达若干次的一堆点，就是一个强连通分量。</p>
-<h3 id="怎么求？">怎么求？</h3>
-<p><s>好办啊</s><br>
-tarjan基本是一个套路。</p>
-<p>那么关于强连通分量，<br>
-你拎出这么一棵树，<br>
-他上面还有很多杂边，<br>
-有从一棵子树插到另一棵的<strong>横插边</strong><br>
-有返回自己祖先之一的<strong>返祖边</strong><br>
-有向自己孙子的<strong>前向边</strong><br>
-当然，可能没有<strong>树边</strong>吗</p>
-<p>上面信息很多、很乱，我们该怎么判断，<br>
-首先前向边没有用，<br>
-这显然；<br>
-其次返祖边有用，<br>
-至关重要，<br>
-因为它毫无疑问是造出强连通分量的边，<br>
-用它可以更新从它到它能达到的那个祖先这一条路上的low；<br>
-再说说横插边，<br>
-emm~有用但不是非常有用，<br>
-它有用是因为它确实可以扩大强连通分量，<br>
-提前解释一下，<br>
-有不理解的人可能会感觉程序里横插边更新不了，<br>
-事实不是这样的，<br>
-因为既然自己身为那个横插边连向的已遍历部分的low的子树内一点，<br>
-这个点的子树必定没遍历完，<br>
-它的强连通分量也就还没结算，<br>
-那些已变量过的部分也就没有退栈，<br>
-因而横插边可以更新到这个点。</p>
-<p>好了，上代码，</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">void dfs(ll x) &#123;</span><br><span class="line">    dfn[x] = low[x] = ++tot;</span><br><span class="line">    stk[++top] = x;</span><br><span class="line">    instk[x] = 1;</span><br><span class="line">    for (int i = head[x]; i; i = e[i].next) &#123;</span><br><span class="line">        if (!dfn[e[i].to])</span><br><span class="line">            dfs(e[i].to), low[x] = min(low[x], low[e[i].to]);</span><br><span class="line">        else if (instk[e[i].to])</span><br><span class="line">            low[x] = min(low[x], dfn[e[i].to]);</span><br><span class="line">    &#125;</span><br><span class="line">    if (dfn[x] == low[x]) &#123;</span><br><span class="line">        id++;</span><br><span class="line">        do &#123;</span><br><span class="line">            newid[stk[top]] = id;</span><br><span class="line">            instk[stk[top--]] = 0;</span><br><span class="line">        &#125; while (instk[x]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    
   </div>
   
   <hr>
@@ -207,7 +159,7 @@ emm~有用但不是非常有用，<br>
   <div class="post-history-list"><ol reversed>
     
       <li class="post-history-item">
-        2023年8月11日 创建文章 
+        2023年8月13日 创建文章 
       </li>
      
   </ol></div>
@@ -224,8 +176,8 @@ emm~有用但不是非常有用，<br>
   
   
     <div class="prev-post">
-      <a href="/2023/08/11/图论/欧拉路径/">
-        欧拉路径
+      <a href="/2023/08/13/图论/连通性专题/">
+        连通性专题
       </a> 
       <span class="iconfont icon-arrow-right-circle"></span>
     </div>
@@ -260,7 +212,7 @@ emm~有用但不是非常有用，<br>
 
   
     <span class="post-wordcount iconfont icon-text"></span>
-    全站约 24,779 字
+    全站约 27,094 字
   
 
   <div class="license" style="padding: 0 10px;">
@@ -288,7 +240,7 @@ emm~有用但不是非常有用，<br>
 
   
   
-<script src="/js/ssimple.js?20230811.js"></script>
+<script src="/js/ssimple.js?20230813.js"></script>
 <script src="https://pv.sohu.com/cityjson?ie=utf-8.js" defer></script>
 
 
