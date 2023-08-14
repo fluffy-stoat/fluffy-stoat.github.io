@@ -8,7 +8,7 @@
   <meta name="keywords" content="">
   <meta name="description" content="Ov-">
   <meta name="generator" content="Hexo 6.3.0">
-  <title>The most important - Directory - fluffy-stoat&#39;s Notes</title>
+  <title>LCIS - fluffy-stoat&#39;s Notes</title>
   <link rel="shortcut icon" href="/images/favicon.ico" />
   
 <link rel="stylesheet" href="/css/ssimple.css?20230814.css">
@@ -109,60 +109,129 @@
 </header>
 
     <main class="main">
-      
-  <div class="archive directory">
-    <header>
-      <h1 class="page-title"><span class="iconfont icon-folder-filling"></span>
-        
-          The most important
-        
-      </h1>
-    </header>
-    
-      <div class="parent-dir">
-        <span class="iconfont icon-Back"></span>
-        <a href="/directory/%E7%94%9F%E6%B4%BB%E6%9D%82%E8%AE%B0/"><span>
-          Directory Above
-        </span></a>
-      </div>
-    
-    <div class="article-list-inner">
-      <div class="item-list dir-list">
-        
-      </div>
-      
-  
-<div class="item-list post-list">
-  
-    
-    <div class="post-meta-card">
-  <div class="post-meta-title">
-    <a href="/2023/08/01/%E7%94%9F%E6%B4%BB%E6%9D%82%E8%AE%B0/The%20most%20important/hi-my-%E2%80%9Cdear%E2%80%9D-friend/" target="">
-      hi~my “dear” friend
-    </a>
+      <article class="post">
+  <div class="post-title">
+    <h1 class="page-title">LCIS</h1>
   </div>
-  <div class="post-meta-data">
-    <div class="post-meta-time">
-      <span class="post-updated-time"><span class="meta-icon iconfont icon-time"></span><time datetime="2023-08-01T15:17:04.000Z" title="更新于 2023年8月1日星期二晚上11点17分 (CST+08:00)">
-        <span class="month">8月</span>
-        <span class="day">1日</span>
-        <span class="time">23:17</span>
-      </time></span>
-      
-    </div>
+  <div class="post-meta">
+  <div class="post-info">
+    <span class="post-info-item post-time" title="2023年8月14日星期一晚上11点18分 (CST+08:00)">
+      <span class="info-icon iconfont icon-time"></span>更新于 2023年8月14日
+    </span>
+    
+      <span class="icon infosep"></span><span class="post-info-item post-wordcount">
+        <span class="info-icon iconfont icon-text"></span>约 627 字
+      </span>
+    
     
   </div>
-</div>
+  <div class="post-directory">
+    
+    <span class="iconfont icon-folder-close"></span>
+    <a class="directory" href="/directory">Home</a>
+    
+        
+        <a class="directory" href="/directory/">
+          
+        </a>
+        <span class="icon smallarrow"></span>
+    
+        
+        <a class="directory" href="/directory/DP/">
+          DP
+        </a>
+        <span class="icon smallarrow"></span>
+    
+    当前文章
+  </div>
   
+  <hr />
 </div>
+   
 
+  
+    <div class="toc" style="display: none;" >
+  
+    <h2 class="toc-title">
+      <span
+       class="iconfont icon-explain" 
+       style="font-size: 1em;padding-right: 5px;"></span
+      >文章目录</h2>
+    <div class="toc-content">
+      
     </div>
+    <hr />
   </div>
+
+
+  <div class="post-content">
+    <p>是个模板，<br>
+不是非常大的一个知识点，<br>
+最长上升公共子序列，<br>
+直接说最快做法N^2吧，<br>
+就是外循环i枚举第一个数组里遍历到的下标，<br>
+内循环j枚举第二个数组里遍历到的下标，<br>
+f[i][j]存a遍历到i,b遍历到j时的最长上升公共子序列长度，<br>
+如果a[i]!=b[j],f[i][j]=f[i-1][j]，显然因为i对答案没有贡献，所以加不加他都一样，<br>
+如果a[i]==b[j],f[i][j]=max(f[i-1][k])+1,k&lt;j,就是从前面找一个最大的转移，这就比较显然了，<br>
+每次进行一遍内循环就计一次内循环里之前遇到的b[j]值小于a[i]值的最大f[i-1][j]，<br>
+如果遇到a[i]==b[j]就把f[i][j]更为记录的那个值+1，<br>
+正确性有保证因为前面记录的是合法的f值，也就是每一位都相互对应，而且算进答案的b[k]只有比a[i]小的，自然与b[k]相等且对应的a[l]比a[i]小，b[k]也比等于a[i]的b[j]小，如此得到的答案依然合法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for(int i=1;i&lt;=n;i++)&#123;</span><br><span class="line">    ll tmp=0;</span><br><span class="line">    for(int j=1;j&lt;=m;j++)&#123;</span><br><span class="line">        f[i][j]=f[i-1][j];</span><br><span class="line">        if(b[j]&lt;a[i])tmp=max(tmp,f[i-1][j]);</span><br><span class="line">        if(a[i]==b[j])f[i][j]=tmp+1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很简短，<br>
+这就没了</p>
+<hr>
+<p>顺带一提，<br>
+最长上升子序列有个lower_bound做法，<br>
+但我更喜欢值域线段树在线维护区间最大值，<br>
+线段树上存的是以下标为结尾的最长长度，<br>
+求答案就query前缀就好了，<br>
+然后再把当前的答案再插回去，<br>
+没准魔改一下树状数组可以去除大常数的问题。</p>
+<p>最长公共子序列好像只有N^2?</p>
+
+  </div>
+  
+  <hr>
+  <h3><span class="iconfont icon-history" style="padding-right: 5px;font-size: 1em;"></span>修订记录</h3>
+  <div class="post-history-list"><ol reversed>
+    
+      <li class="post-history-item">
+        2023年8月14日 创建文章 
+      </li>
+     
+  </ol></div>
+
+  <div class="post-footer">
+  <hr>
+  
+    <div class="next-post">
+      <span class="iconfont icon-arrow-left-circle"></span> 
+      <a href="/2023/08/13/图论/网络流/">
+        网络流
+      </a>
+    </div>
+  
+  
+    <div class="prev-post">
+      <a href="/2023/08/14/生活杂记/diary/8-14/">
+        8-14
+      </a> 
+      <span class="iconfont icon-arrow-right-circle"></span>
+    </div>
+  
+</div>
+</article>
+
 
 
     </main>
   </body>
   <div class="side-button">
+  
+    <div id="comment-button" class="button" title="Valine Comment" >
+      <span class="iconfont icon-comment"></span>
+    </div>
   
     <div id="darkmode-button" class="button" title="Switch between day and night" >
       <span class="iconfont icon-moonbyueliang"></span>
