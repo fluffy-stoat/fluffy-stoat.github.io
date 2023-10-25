@@ -11,10 +11,10 @@
   <title>连通性专题 - fluffy-stoat&#39;s Notes</title>
   <link rel="shortcut icon" href="/images/favicon.ico" />
   
-<link rel="stylesheet" href="/css/ssimple.css?20231012.css">
+<link rel="stylesheet" href="/css/ssimple.css?20231025.css">
 
   
-<link rel="stylesheet" href="/iconfont/iconfont.css?20231012.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css?20231025.css">
 
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
@@ -115,12 +115,12 @@
   </div>
   <div class="post-meta">
   <div class="post-info">
-    <span class="post-info-item post-time" title="2023年8月13日星期日晚上11点58分 (CST+08:00)">
-      <span class="info-icon iconfont icon-time"></span>更新于 2023年8月13日
+    <span class="post-info-item post-time" title="2023年10月25日星期三上午9点18分 (CST+08:00)">
+      <span class="info-icon iconfont icon-time"></span>更新于 2023年10月25日
     </span>
     
       <span class="icon infosep"></span><span class="post-info-item post-wordcount">
-        <span class="info-icon iconfont icon-text"></span>约 857 字
+        <span class="info-icon iconfont icon-text"></span>约 916 字
       </span>
     
     
@@ -196,7 +196,7 @@ emm~有用但不是非常有用，<br>
 因为既然自己身为那个横插边连向的已遍历部分的low的子树内一点，<br>
 这个点的子树必定没遍历完，<br>
 它的强连通分量也就还没结算，<br>
-那些已变量过的部分也就没有退栈，<br>
+那些已遍历过的部分也就没有退栈，<br>
 因而横插边可以更新到这个点。</p>
 <p>好了，上代码，</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">void dfs(ll x) &#123;</span><br><span class="line">    dfn[x] = low[x] = ++tot;</span><br><span class="line">    stk[++top] = x;</span><br><span class="line">    instk[x] = 1;</span><br><span class="line">    for (int i = head[x]; i; i = e[i].next) &#123;</span><br><span class="line">        if (!dfn[e[i].to])</span><br><span class="line">            dfs(e[i].to), low[x] = min(low[x], low[e[i].to]);</span><br><span class="line">        else if (instk[e[i].to])</span><br><span class="line">            low[x] = min(low[x], dfn[e[i].to]);</span><br><span class="line">    &#125;</span><br><span class="line">    if (dfn[x] == low[x]) &#123;</span><br><span class="line">        id++;</span><br><span class="line">        do &#123;</span><br><span class="line">            newid[stk[top]] = id;</span><br><span class="line">            instk[stk[top--]] = 0;</span><br><span class="line">        &#125; while (instk[x]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -207,6 +207,10 @@ emm~有用但不是非常有用，<br>
   <hr>
   <h3><span class="iconfont icon-history" style="padding-right: 5px;font-size: 1em;"></span>修订记录</h3>
   <div class="post-history-list"><ol reversed>
+    
+      <li class="post-history-item">
+        2023年10月25日 第3次修订 
+      </li>
     
       <li class="post-history-item">
         2023年8月13日 第2次修订 
@@ -223,15 +227,15 @@ emm~有用但不是非常有用，<br>
   
     <div class="next-post">
       <span class="iconfont icon-arrow-left-circle"></span> 
-      <a href="/2023/08/13/生活杂记/diary/8-13/">
-        8-13
+      <a href="/2023/10/12/DP/同余最短路/">
+        同余最短路
       </a>
     </div>
   
   
     <div class="prev-post">
-      <a href="/2023/08/13/图论/网络流/">
-        网络流
+      <a href="/2023/10/25/杂题选讲/区间数颜色-树上区间并求和/">
+        区间数颜色&amp;树上区间并求和
       </a> 
       <span class="iconfont icon-arrow-right-circle"></span>
     </div>
@@ -266,7 +270,7 @@ emm~有用但不是非常有用，<br>
 
   
     <span class="post-wordcount iconfont icon-text"></span>
-    全站约 33,344 字
+    全站约 35,342 字
   
 
   <div class="license" style="padding: 0 10px;">
@@ -294,7 +298,7 @@ emm~有用但不是非常有用，<br>
 
   
   
-<script src="/js/ssimple.js?20231012.js"></script>
+<script src="/js/ssimple.js?20231025.js"></script>
 <script src="https://pv.sohu.com/cityjson?ie=utf-8.js" defer></script>
 
 
