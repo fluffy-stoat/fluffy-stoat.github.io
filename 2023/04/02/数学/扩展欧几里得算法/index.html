@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+   
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="keywords" content="">
+  <meta name="description" content="Ov-">
+  <meta name="generator" content="Hexo 7.3.0">
+  <title>扩展欧几里得算法 - fluffy-stoat&#39;s Notes</title>
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+  
+<link rel="stylesheet" href="/css/ssimple.css?20250905.css">
+
+  
+<link rel="stylesheet" href="/iconfont/iconfont.css?20250905.css">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" 
+    crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(){
+      window.renderKatex();
+    });
+  </script>
+
+
+</head>
+
+  <body>
+    <header>
+  <div class="header" style="width: 100%;">
+    <div class="header-inner" style="position: fixed; z-index: 20; top: 0; left: 0;">
+      <div class="header-content" style="max-width: 1200px; margin: auto;">
+        <div class="blog-title">
+          <span class="iconfont icon-menu1" id="menu-button"></span>
+          <a href="/" class="logo header-title">
+            fluffy-stoat&#39;s Notes
+          </a>
+          
+            <div class="mobile-search">
+              <input type="text" />
+              <span class="iconfont icon-search mobile-search-icon"></span>
+              <span class="iconfont icon-baseline-close-px search-close-icon"></span>
+            </div>
+          
+        </div>
+        <div class="navbar" id="menu-list">
+          <ul class="menu">
+            
+          </ul>
+        </div>
+        
+          <div class="search">
+            <input type="text" />
+            <span class="iconfont icon-search search-icon"></span>
+            <span class="iconfont icon-baseline-close-px search-close-icon"></span>
+          </div>
+        
+      </div>
+    </div>
+    
+      <div class="search-shadow"> </div>
+      <div class="search-box">
+        <div class="search-container">
+  <div class="search-container-inner">
+    <div class="search-data-status">
+      <span>Fetching search data...</span>
+    </div>
+    <div class="search-count"></div>
+    <div class="search-result"></div>
+  </div>
+</div>
+      </div>
+    
+  </div>
+</header>
+
+    <main class="main">
+      <article class="post">
+  <div class="post-title">
+    <h1 class="page-title">扩展欧几里得算法</h1>
+  </div>
+  <div class="post-meta">
+  <div class="post-info">
+    <span class="post-info-item post-time" title="2023年4月2日星期日上午11点08分 (CST+08:00)">
+      <span class="info-icon iconfont icon-time"></span>更新于 2023年4月2日
+    </span>
+    
+      <span class="icon infosep"></span><span class="post-info-item post-wordcount">
+        <span class="info-icon iconfont icon-text"></span>约 679 字
+      </span>
+    
+    
+  </div>
+  <div class="post-directory">
+    
+    <span class="iconfont icon-folder-close"></span>
+    <a class="directory" href="/directory">Home</a>
+    
+        
+        <a class="directory" href="/directory/">
+          
+        </a>
+        <span class="icon smallarrow"></span>
+    
+        
+        <a class="directory" href="/directory/%E6%95%B0%E5%AD%A6/">
+          数学
+        </a>
+        <span class="icon smallarrow"></span>
+    
+    当前文章
+  </div>
+  
+  <hr />
+</div>
+   
+
+  
+    <div class="toc">
+  
+    <h2 class="toc-title">
+      <span
+       class="iconfont icon-explain" 
+       style="font-size: 1em;padding-right: 5px;"></span
+      >文章目录</h2>
+    <div class="toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#解二元一次不定方程"><span class="toc-number">1.</span> <span class="toc-text">解二元一次不定方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解同余方程"><span class="toc-number">2.</span> <span class="toc-text">解同余方程</span></a></li></ol>
+    </div>
+    <hr />
+  </div>
+
+
+  <div class="post-content">
+    <h2 id="解二元一次不定方程"><a href="#解二元一次不定方程" class="headerlink" title="解二元一次不定方程"></a>解二元一次不定方程</h2><p>$$<br>ax+by&#x3D;c<br>$$</p>
+<p>有解的条件： $ \gcd(a,b)\mid c$<br>(若 $\gcd(a,b)$ 与 $c$ 互质或大于则无法配出，因为     $a$ 与 $b$ 能配出的数为 $\gcd(a,b)$ 的倍数)</p>
+<p>对原式两边同除$\gcd(a,b)$，<br>得到 $a’x+b’y&#x3D;c’$ 此时 $a’\bot  b’$ ，<br>如此可用 $exgcd$ 来求 $a’x+b’y&#x3D;1$ 的解，进而对得到的答案分别乘以 $c’$ 即可。</p>
+<p>求解可在求解 $\gcd$ 的过程中实现，<br>先将上式变到未知 $\gcd(a,b)$ 前的 $ax+by&#x3D;\gcd(a,b)$<br>代入辗转相除过程：</p>
+<p>$$<br>ax+by<br>$$</p>
+<p>$$<br>&#x3D;\gcd(a,b)<br>$$</p>
+<p>$$<br>&#x3D;\gcd(b,a\mod \quad b)<br>$$</p>
+<p>$$<br>&#x3D;bx’+(a\mod \quad b)y’<br>$$</p>
+<p>$$<br>\ldots<br>$$</p>
+<p>$$<br>&#x3D;1<br>$$</p>
+<p>$$<br>(a\bot b)<br>$$</p>
+<p>$$<br>\left{\begin{array}{c}x_n&#x3D;1\y_n&#x3D;0\end{array}\right.<br>$$</p>
+<p>看两层间关系：</p>
+<p>$$<br>ax+by<br>$$</p>
+<p>$$<br>&#x3D;bx’+(a\mod \quad b)y’<br>$$</p>
+<p>$$<br>&#x3D;ay’ +b(x’-\lfloor {a \over b} \rfloor y’)<br>$$</p>
+<p>由此可以看出：</p>
+<p>$$<br>\left{  \begin{array}{c}x&#x3D;y’\y&#x3D;x’- \lfloor {a \over b} \rfloor y’\\end{array}\right.<br>$$</p>
+<p>那么我们就可以用最后那一组确定的特解不断向前代直到得到 $ax+by&#x3D;\gcd(a,b)$ 的解<br>最后附上一份 $exgcd$ 的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#define ll long long</span><br><span class="line">ll exgcd(ll a,ll b)&#123;</span><br><span class="line">	if(b==0)return a;</span><br><span class="line">	ll res=gcd(b,a%b);</span><br><span class="line">	ll x1=x,y1=y;</span><br><span class="line">	x=y1;</span><br><span class="line">	y=x1-a/b*y1;</span><br><span class="line">	return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度$\Theta(\log n)$</p>
+<h2 id="解同余方程"><a href="#解同余方程" class="headerlink" title="解同余方程"></a>解同余方程</h2><p>$$<br>ax\equiv b\pmod m<br>$$</p>
+<p>考虑先把他转换成普通的方程：</p>
+<p>$$<br>ax&#x3D;b-my<br>$$</p>
+<p>移项得</p>
+<p>$$<br>ax+my&#x3D;b<br>$$</p>
+<p>之后便可按解二元一次不定方程的步骤来求解</p>
+
+  </div>
+  
+  <hr>
+  <h3><span class="iconfont icon-history" style="padding-right: 5px;font-size: 1em;"></span>修订记录</h3>
+  <div class="post-history-list"><ol reversed>
+    
+      <li class="post-history-item">
+        2023年4月2日 创建文章 
+      </li>
+     
+  </ol></div>
+
+  <div class="post-footer">
+  <hr>
+  
+    <div class="next-post">
+      <span class="iconfont icon-arrow-left-circle"></span> 
+      <a href="/2023/04/02/数学/欧拉函数与欧拉定理/">
+        欧拉函数与欧拉定理
+      </a>
+    </div>
+  
+  
+    <div class="prev-post">
+      <a href="/2023/04/02/数学/二项式定理/">
+        二项式定理
+      </a> 
+      <span class="iconfont icon-arrow-right-circle"></span>
+    </div>
+  
+</div>
+</article>
+
+
+  <div id="vcomments"></div>
+
+
+    </main>
+  </body>
+  <div class="side-button">
+  
+    <div id="comment-button" class="button" title="Valine Comment" >
+      <span class="iconfont icon-comment"></span>
+    </div>
+  
+    <div id="darkmode-button" class="button" title="Switch between day and night" >
+      <span class="iconfont icon-moonbyueliang"></span>
+    </div>
+  
+    <div id="top" class="button" title="Back to top" >
+      <span class="iconfont icon-arrowup"></span>
+    </div>
+  
+</div>
+
+  <footer id="footer" style="margin: 3em 0 2em 0; text-align: center; line-height: 1.4em">
+
+  
+  <div class="visitor">
+    <span id="/2023/12/14/表达式树/" class="leancloud_visitors" data-flag-title="表达式树">
+      <span class="iconfont icon-eye"></span>
+      <span class="post-meta-item-text">Page view </span>
+      <i class="leancloud-visitors-count"></i>
+    </span>
+  </div>
+
+
+
+  
+    <span class="post-wordcount iconfont icon-text"></span>
+    全站约 7,313 字
+  
+
+  <div class="license" style="padding: 0 10px;">
+    <span>
+    本站所有文章遵循许可协议 
+    <a target="_blank" rel="license noreferrer noopener" href="https://creativecommons.org/licenses/by-sa/4.0/">
+      Creative Commons Attribution-ShareAlike 4.0 International License
+    </a>
+    </span>
+  </div>
+
+  <div class="credit">
+    <span>Themed
+    <a href="https://github.com/sshwy/hexo-theme-essence" target="_blank" rel="noreferrer noopener">Essence v1.10.0</a>
+    | Powered by <a href="http://hexo.io" target="_blank" rel="noreferrer noopener">Hexo</a></span>
+  </div>
+
+  
+
+  <div class="copyright">
+    <span>Copyright &copy; 2019-2021 - fluffy-stoat</span>
+  </div>
+
+</footer>
+
+  
+  <script type="text/javascript">
+    var valine_path = 'error'
+  </script>
+
+  
+<script src="/js/ssimple.js?20250905.js"></script>
+<script src="https://pv.sohu.com/cityjson?ie=utf-8.js" defer></script>
+
+
+
+  <script type="text/javascript">
+    loadComments();
+    function loadComments() {
+      if (typeof Valine === 'undefined') {
+        var getScript = (options) => {
+          var script = document.createElement('script');
+          script.defer = true;
+          script.crossOrigin = 'anonymous';
+          Object.keys(options).forEach((key) => {
+            script[key] = options[key];
+          });
+          document.body.appendChild(script);
+        };
+        getScript({
+          src: 'https://cdn.jsdelivr.net/npm/valine',
+          onload: function () {
+            newValine();
+          }
+        });
+      } else {
+        newValine();
+      }
+    }
+    function newValine() {
+      if (valine_path[valine_path.length - 1] != '\/') valine_path = valine_path + '\/';
+      new Valine({
+        el: '#vcomments',
+        appId: '',
+        appKey: '',
+        placeholder: '',
+        serverURLs: '',
+        visitor: true,
+        recordIP: true,
+        requiredFields: ['nick', 'mail'],
+        avatar: 'retro',
+        path: valine_path
+      });
+    }
+  </script>
+
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+   
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="keywords" content="">
+  <meta name="description" content="Ov-">
+  <meta name="generator" content="Hexo 7.3.0">
+  <title>一个DP套路 - fluffy-stoat&#39;s Notes</title>
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+  
+<link rel="stylesheet" href="/css/ssimple.css?20250905.css">
+
+  
+<link rel="stylesheet" href="/iconfont/iconfont.css?20250905.css">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" 
+    crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(){
+      window.renderKatex();
+    });
+  </script>
+
+
+</head>
+
+  <body>
+    <header>
+  <div class="header" style="width: 100%;">
+    <div class="header-inner" style="position: fixed; z-index: 20; top: 0; left: 0;">
+      <div class="header-content" style="max-width: 1200px; margin: auto;">
+        <div class="blog-title">
+          <span class="iconfont icon-menu1" id="menu-button"></span>
+          <a href="/" class="logo header-title">
+            fluffy-stoat&#39;s Notes
+          </a>
+          
+            <div class="mobile-search">
+              <input type="text" />
+              <span class="iconfont icon-search mobile-search-icon"></span>
+              <span class="iconfont icon-baseline-close-px search-close-icon"></span>
+            </div>
+          
+        </div>
+        <div class="navbar" id="menu-list">
+          <ul class="menu">
+            
+          </ul>
+        </div>
+        
+          <div class="search">
+            <input type="text" />
+            <span class="iconfont icon-search search-icon"></span>
+            <span class="iconfont icon-baseline-close-px search-close-icon"></span>
+          </div>
+        
+      </div>
+    </div>
+    
+      <div class="search-shadow"> </div>
+      <div class="search-box">
+        <div class="search-container">
+  <div class="search-container-inner">
+    <div class="search-data-status">
+      <span>Fetching search data...</span>
+    </div>
+    <div class="search-count"></div>
+    <div class="search-result"></div>
+  </div>
+</div>
+      </div>
+    
+  </div>
+</header>
+
+    <main class="main">
+      <article class="post">
+  <div class="post-title">
+    <h1 class="page-title">一个DP套路</h1>
+  </div>
+  <div class="post-meta">
+  <div class="post-info">
+    <span class="post-info-item post-time" title="2023年10月12日星期四晚上6点49分 (CST+08:00)">
+      <span class="info-icon iconfont icon-time"></span>更新于 2023年10月12日
+    </span>
+    
+      <span class="icon infosep"></span><span class="post-info-item post-wordcount">
+        <span class="info-icon iconfont icon-text"></span>约 1,321 字
+      </span>
+    
+    
+  </div>
+  <div class="post-directory">
+    
+    <span class="iconfont icon-folder-close"></span>
+    <a class="directory" href="/directory">Home</a>
+    
+        
+        <a class="directory" href="/directory/">
+          
+        </a>
+        <span class="icon smallarrow"></span>
+    
+        
+        <a class="directory" href="/directory/%E6%9D%82%E9%A2%98%E9%80%89%E8%AE%B2/">
+          杂题选讲
+        </a>
+        <span class="icon smallarrow"></span>
+    
+    当前文章
+  </div>
+  
+  <hr />
+</div>
+   
+
+  
+    <div class="toc" style="display: none;" >
+  
+    <h2 class="toc-title">
+      <span
+       class="iconfont icon-explain" 
+       style="font-size: 1em;padding-right: 5px;"></span
+      >文章目录</h2>
+    <div class="toc-content">
+      
+    </div>
+    <hr />
+  </div>
+
+
+  <div class="post-content">
+    <p><a target="_blank" rel="noopener" href="http://www.nfls.com.cn:10611/contest/972/problem/2">题目描述</a><br>简述：给一些物品，两维重量，一维价值，求取一些物品满足第一种重量和不大于$P$，第二种重量和不小于$P$时，价值的最小值$n\le1e3,P\le1e5$。<br>这东西我第一眼看甚至都不敢保证$nP$能不能过，<del>后来发现我弱到只能写$nP^2$</del>。<br>暴力自然比较好想，就是开三维，一维下标，二维重量一，三维重量二，内容存最小价值。<br>咋做到$nP$呢，看到限制里面有$0\le b_i\le a_i\le 1e6$，想一下，有什么用处？<br>既然$a$的和蹭线就行$b$的和不过线就行，那我们其实可以通融通融，把它们的值向中间收束，反正他俩只是状态，和答案的值没关系，过线的部分少一点不影响他已经过线的事实，没过的部分多一点也不影响他没过的状态，这样我们就可以把两个状态合并，把一个物品当成一组物品，每组物品至多取一个，物品只有一个重量，组内价值都是原来物品的价值，物品的唯一重量在组内恰好把$[b_i,a_i]$这个区间覆盖一遍，这样一来，再按类似原来的方法$dp$，只不过一维下标，二维重量，内容存价值。<br>这么看好像还不够，毕竟区间一大就又完蛋，但其实不是，单调队列维护区间最小值，设当前遍历到的物品是$i$已达的重量是$j$，那么转移就是$$f[i][j]&#x3D;min(f[i-1][j],\min^{j-b[i]}_{k&#x3D;j-a[i]}(f[i-1][k]+c[i]))$$<br>最终答案就是$f[n][P]$，因为按上面的方法拆完物品后，一定会有合法最优解卡在$P$</p>
+<p>总结：算是一种套路吧，就有一种只用满足状态的大于小于关系的可以为了优化时间来在规则允许的情况下收束来减少状态数。<del>（可能有什么神展开但我智力有限一时半会无法想象，等以后遇到类似的再说吧）</del></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">#define ll long long </span><br><span class="line">#define gtc() getchar()</span><br><span class="line">#define fp(i,l,r) for(int i=l;i&lt;=r;i++)</span><br><span class="line">#define fb(i,l,r) for(int i=l;i&gt;=r;i--)</span><br><span class="line">#define pil pair&lt;int,long long&gt;</span><br><span class="line">template &lt;class T&gt;</span><br><span class="line">inline void read(T &amp;s)&#123;</span><br><span class="line">    T neg=1,ch=gtc();s=0;</span><br><span class="line">    while(!isdigit(ch))&#123;if(ch==&#x27;-&#x27;)neg=-1;ch=gtc();&#125;</span><br><span class="line">    while(isdigit(ch))&#123;s=(s&lt;&lt;3)+(s&lt;&lt;1)+(ch-&#x27;0&#x27;);ch=gtc();&#125;</span><br><span class="line">    s=s*neg;</span><br><span class="line">&#125;</span><br><span class="line">const ll N=1000050;</span><br><span class="line">ll t,n,m,a[N],b[N],c[N],ans=1e18,l,r,f[2][N];</span><br><span class="line">struct node&#123;</span><br><span class="line">    ll v,p;</span><br><span class="line">&#125;tmp,deq[N];</span><br><span class="line">int main()&#123;</span><br><span class="line">    clock_t st,ed;</span><br><span class="line">    st=clock();</span><br><span class="line">    freopen(&quot;shop.in&quot;,&quot;r&quot;,stdin);</span><br><span class="line">    freopen(&quot;shop.out&quot;,&quot;w&quot;,stdout);</span><br><span class="line">    read(n),read(m);</span><br><span class="line">    fp(i,1,n)read(a[i]);</span><br><span class="line">    fp(i,1,n)read(b[i]);</span><br><span class="line">    fp(i,1,n)read(c[i]);</span><br><span class="line">    fp(i,1,m)f[0][i]=f[1][i]=1e18;</span><br><span class="line">    fp(i,1,n)&#123;</span><br><span class="line">        l=r=1;</span><br><span class="line">        fp(j,1,m)&#123;</span><br><span class="line">            if(j-b[i]&gt;=0)&#123;</span><br><span class="line">                while(r&gt;l&amp;&amp;deq[r].v&gt;f[(i%2)^1][j-b[i]])r--;</span><br><span class="line">                deq[++r].p=j-b[i],deq[r].v=f[(i%2)^1][j-b[i]];</span><br><span class="line">                while(deq[l+1].p&lt;j-a[i])l++;</span><br><span class="line">                //cout&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;&quot; &quot;&lt;&lt;deq[l+1].p&lt;&lt;&quot; &quot;&lt;&lt;deq[l+1].v&lt;&lt;endl;</span><br><span class="line">                f[i%2][j]=min(f[(i%2)^1][j],deq[l+1].v+c[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            f[i%2][j]=min(f[i%2][j],f[(i%2)^1][j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%lld&quot;,f[n%2][m]);</span><br><span class="line">    ed=clock();</span><br><span class="line">    //cout&lt;&lt;endl&lt;&lt;ed-st;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  </div>
+  
+  <hr>
+  <h3><span class="iconfont icon-history" style="padding-right: 5px;font-size: 1em;"></span>修订记录</h3>
+  <div class="post-history-list"><ol reversed>
+    
+      <li class="post-history-item">
+        2023年10月12日 创建文章 
+      </li>
+     
+  </ol></div>
+
+  <div class="post-footer">
+  <hr>
+  
+    <div class="next-post">
+      <span class="iconfont icon-arrow-left-circle"></span> 
+      <a href="/2023/10/12/杂题选讲/小技巧（7）/">
+        小技巧（7）
+      </a>
+    </div>
+  
+  
+    <div class="prev-post">
+      <a href="/2023/10/12/杂题选讲/A/">
+        A*
+      </a> 
+      <span class="iconfont icon-arrow-right-circle"></span>
+    </div>
+  
+</div>
+</article>
+
+
+  <div id="vcomments"></div>
+
+
+    </main>
+  </body>
+  <div class="side-button">
+  
+    <div id="comment-button" class="button" title="Valine Comment" >
+      <span class="iconfont icon-comment"></span>
+    </div>
+  
+    <div id="darkmode-button" class="button" title="Switch between day and night" >
+      <span class="iconfont icon-moonbyueliang"></span>
+    </div>
+  
+    <div id="top" class="button" title="Back to top" >
+      <span class="iconfont icon-arrowup"></span>
+    </div>
+  
+</div>
+
+  <footer id="footer" style="margin: 3em 0 2em 0; text-align: center; line-height: 1.4em">
+
+  
+  <div class="visitor">
+    <span id="/2023/12/14/表达式树/" class="leancloud_visitors" data-flag-title="表达式树">
+      <span class="iconfont icon-eye"></span>
+      <span class="post-meta-item-text">Page view </span>
+      <i class="leancloud-visitors-count"></i>
+    </span>
+  </div>
+
+
+
+  
+    <span class="post-wordcount iconfont icon-text"></span>
+    全站约 7,313 字
+  
+
+  <div class="license" style="padding: 0 10px;">
+    <span>
+    本站所有文章遵循许可协议 
+    <a target="_blank" rel="license noreferrer noopener" href="https://creativecommons.org/licenses/by-sa/4.0/">
+      Creative Commons Attribution-ShareAlike 4.0 International License
+    </a>
+    </span>
+  </div>
+
+  <div class="credit">
+    <span>Themed
+    <a href="https://github.com/sshwy/hexo-theme-essence" target="_blank" rel="noreferrer noopener">Essence v1.10.0</a>
+    | Powered by <a href="http://hexo.io" target="_blank" rel="noreferrer noopener">Hexo</a></span>
+  </div>
+
+  
+
+  <div class="copyright">
+    <span>Copyright &copy; 2019-2021 - fluffy-stoat</span>
+  </div>
+
+</footer>
+
+  
+  <script type="text/javascript">
+    var valine_path = 'error'
+  </script>
+
+  
+<script src="/js/ssimple.js?20250905.js"></script>
+<script src="https://pv.sohu.com/cityjson?ie=utf-8.js" defer></script>
+
+
+
+  <script type="text/javascript">
+    loadComments();
+    function loadComments() {
+      if (typeof Valine === 'undefined') {
+        var getScript = (options) => {
+          var script = document.createElement('script');
+          script.defer = true;
+          script.crossOrigin = 'anonymous';
+          Object.keys(options).forEach((key) => {
+            script[key] = options[key];
+          });
+          document.body.appendChild(script);
+        };
+        getScript({
+          src: 'https://cdn.jsdelivr.net/npm/valine',
+          onload: function () {
+            newValine();
+          }
+        });
+      } else {
+        newValine();
+      }
+    }
+    function newValine() {
+      if (valine_path[valine_path.length - 1] != '\/') valine_path = valine_path + '\/';
+      new Valine({
+        el: '#vcomments',
+        appId: '',
+        appKey: '',
+        placeholder: '',
+        serverURLs: '',
+        visitor: true,
+        recordIP: true,
+        requiredFields: ['nick', 'mail'],
+        avatar: 'retro',
+        path: valine_path
+      });
+    }
+  </script>
+
+</html>

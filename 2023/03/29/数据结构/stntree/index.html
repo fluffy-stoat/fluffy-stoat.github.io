@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+   
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="keywords" content="">
+  <meta name="description" content="Ov-">
+  <meta name="generator" content="Hexo 7.3.0">
+  <title>斯坦纳树 - fluffy-stoat&#39;s Notes</title>
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+  
+<link rel="stylesheet" href="/css/ssimple.css?20250905.css">
+
+  
+<link rel="stylesheet" href="/iconfont/iconfont.css?20250905.css">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" 
+    crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(){
+      window.renderKatex();
+    });
+  </script>
+
+
+</head>
+
+  <body>
+    <header>
+  <div class="header" style="width: 100%;">
+    <div class="header-inner" style="position: fixed; z-index: 20; top: 0; left: 0;">
+      <div class="header-content" style="max-width: 1200px; margin: auto;">
+        <div class="blog-title">
+          <span class="iconfont icon-menu1" id="menu-button"></span>
+          <a href="/" class="logo header-title">
+            fluffy-stoat&#39;s Notes
+          </a>
+          
+            <div class="mobile-search">
+              <input type="text" />
+              <span class="iconfont icon-search mobile-search-icon"></span>
+              <span class="iconfont icon-baseline-close-px search-close-icon"></span>
+            </div>
+          
+        </div>
+        <div class="navbar" id="menu-list">
+          <ul class="menu">
+            
+          </ul>
+        </div>
+        
+          <div class="search">
+            <input type="text" />
+            <span class="iconfont icon-search search-icon"></span>
+            <span class="iconfont icon-baseline-close-px search-close-icon"></span>
+          </div>
+        
+      </div>
+    </div>
+    
+      <div class="search-shadow"> </div>
+      <div class="search-box">
+        <div class="search-container">
+  <div class="search-container-inner">
+    <div class="search-data-status">
+      <span>Fetching search data...</span>
+    </div>
+    <div class="search-count"></div>
+    <div class="search-result"></div>
+  </div>
+</div>
+      </div>
+    
+  </div>
+</header>
+
+    <main class="main">
+      <article class="post">
+  <div class="post-title">
+    <h1 class="page-title">斯坦纳树</h1>
+  </div>
+  <div class="post-meta">
+  <div class="post-info">
+    <span class="post-info-item post-time" title="2023年3月29日星期三晚上9点55分 (CST+08:00)">
+      <span class="info-icon iconfont icon-time"></span>更新于 2023年3月29日
+    </span>
+    
+      <span class="icon infosep"></span><span class="post-info-item post-wordcount">
+        <span class="info-icon iconfont icon-text"></span>约 1,169 字
+      </span>
+    
+    
+  </div>
+  <div class="post-directory">
+    
+    <span class="iconfont icon-folder-close"></span>
+    <a class="directory" href="/directory">Home</a>
+    
+        
+        <a class="directory" href="/directory/">
+          
+        </a>
+        <span class="icon smallarrow"></span>
+    
+        
+        <a class="directory" href="/directory/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+          数据结构
+        </a>
+        <span class="icon smallarrow"></span>
+    
+    当前文章
+  </div>
+  
+  <hr />
+</div>
+   
+
+  
+    <div class="toc">
+  
+    <h2 class="toc-title">
+      <span
+       class="iconfont icon-explain" 
+       style="font-size: 1em;padding-right: 5px;"></span
+      >文章目录</h2>
+    <div class="toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#引入"><span class="toc-number">1.</span> <span class="toc-text">引入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模板"><span class="toc-number">2.</span> <span class="toc-text">模板</span></a></li></ol>
+    </div>
+    <hr />
+  </div>
+
+
+  <div class="post-content">
+    <h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>众所周知，最小生成树是用来解决图上最小代价联通的问题的，但是他有一个局限性，那就是他仅适用于必须将所有点全部联通的情况。</p>
+<p>有一类问题，需要求图上<strong>联通所有关键点</strong>的最小代价，在这种情况下，之前的最小生成树的策略显然不适用，因为不必连接所有点，但又可能会存在一些中转点，看起来非常的凌乱，这个时候，就需要用到<strong>斯坦纳树</strong></p>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6192" title="题目描述">题目描述</a></p>
+<p>这是斯坦纳树的经典例题，题面就不过多赘述，解决这一问题，我们考虑$dp$，状压并不好办，因为节点数太多，但是发现关键点数并不多，于是设计出来$dp$数组为$f_{p,s}$，其中$p$表示指定为树根的节点下标，$s$为当前树对关键点的包含状态，数组存的值，即为最小代价，</p>
+<p>可是我们发现，这图显然<strong>不是$DAG$</strong>，那<strong>没有拓扑序</strong>怎么$dp$呢，这时候可以<strong>用最短路的思想来协助$dp$</strong>,如同最短路的更新操作，我们可以使用一个点的$dp$值来更新其他点的$dp$值，同时，还有针对于同根的子树的合并更新</p>
+<p>代码如下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; P;</span><br><span class="line">ll n,m,k,key[<span class="number">15</span>],head[<span class="number">105</span>],cnt=<span class="number">1</span>,dp[<span class="number">105</span>][<span class="number">2000</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span>&#123;</span><br><span class="line">    ll to,next,w;</span><br><span class="line">&#125;e[<span class="number">1005</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span>&#123;</span><br><span class="line">    ll val,pos;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">operator</span> &lt;(<span class="type">const</span> node &amp;a)<span class="type">const</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> val&gt;a.val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;tmp;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">make</span><span class="params">(ll u,ll v,ll w)</span></span>&#123;</span><br><span class="line">    e[cnt].next=head[u];</span><br><span class="line">    e[cnt].to=v;</span><br><span class="line">    e[cnt].w=w;</span><br><span class="line">    head[u]=cnt++;</span><br><span class="line">&#125;</span><br><span class="line">priority_queue&lt;node&gt; q;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dij</span><span class="params">(ll s)</span></span>&#123;<span class="comment">//这是类最短路松弛更新</span></span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())&#123;</span><br><span class="line">        tmp=q.<span class="built_in">top</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        ll p=tmp.pos;</span><br><span class="line">        <span class="keyword">if</span>(tmp.val&lt;dp[p][s])<span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=head[p];i;i=e[i].next)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[p][s]+e[i].w&lt;dp[e[i].to][s])&#123;</span><br><span class="line">                dp[e[i].to][s]=dp[p][s]+e[i].w;</span><br><span class="line">                tmp.pos=e[i].to;</span><br><span class="line">                tmp.val=dp[e[i].to][s];</span><br><span class="line">                q.<span class="built_in">push</span>(tmp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld%lld%lld&quot;</span>,&amp;n,&amp;m,&amp;k);</span><br><span class="line">    ll u,v,w;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%lld%lld%lld&quot;</span>,&amp;u,&amp;v,&amp;w);</span><br><span class="line">        <span class="built_in">make</span>(u,v,w);</span><br><span class="line">        <span class="built_in">make</span>(v,u,w);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;=(<span class="number">1</span>&lt;&lt;k);j++)&#123;</span><br><span class="line">            dp[i][j]=<span class="number">1e18</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=k;i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>,&amp;key[i]);</span><br><span class="line">        dp[key[i]][<span class="number">1</span>&lt;&lt;(i<span class="number">-1</span>)]=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;(<span class="number">1</span>&lt;&lt;k);i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> o=(i<span class="number">-1</span>)&amp;i;o;o=(o<span class="number">-1</span>)&amp;i)&#123;</span><br><span class="line">                dp[j][i]=<span class="built_in">min</span>(dp[j][i],dp[j][o]+dp[j][i^o]);<span class="comment">//这是合并更新</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(dp[j][i]!=<span class="number">1e18</span>)&#123;tmp.pos=j,tmp.val=dp[j][i],q.<span class="built_in">push</span>(tmp);&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">dij</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,dp[key[<span class="number">1</span>]][(<span class="number">1</span>&lt;&lt;k)<span class="number">-1</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  </div>
+  
+  <hr>
+  <h3><span class="iconfont icon-history" style="padding-right: 5px;font-size: 1em;"></span>修订记录</h3>
+  <div class="post-history-list"><ol reversed>
+    
+      <li class="post-history-item">
+        2023年3月29日 创建文章 
+      </li>
+     
+  </ol></div>
+
+  <div class="post-footer">
+  <hr>
+  
+    <div class="next-post">
+      <span class="iconfont icon-arrow-left-circle"></span> 
+      <a target="_blank" rel="noopener" href="//FFT-NTT/">
+        快速多项式乘法
+      </a>
+    </div>
+  
+  
+    <div class="prev-post">
+      <a href="/2023/03/29/数学/stl/">
+        第二类斯特林数
+      </a> 
+      <span class="iconfont icon-arrow-right-circle"></span>
+    </div>
+  
+</div>
+</article>
+
+
+  <div id="vcomments"></div>
+
+
+    </main>
+  </body>
+  <div class="side-button">
+  
+    <div id="comment-button" class="button" title="Valine Comment" >
+      <span class="iconfont icon-comment"></span>
+    </div>
+  
+    <div id="darkmode-button" class="button" title="Switch between day and night" >
+      <span class="iconfont icon-moonbyueliang"></span>
+    </div>
+  
+    <div id="top" class="button" title="Back to top" >
+      <span class="iconfont icon-arrowup"></span>
+    </div>
+  
+</div>
+
+  <footer id="footer" style="margin: 3em 0 2em 0; text-align: center; line-height: 1.4em">
+
+  
+  <div class="visitor">
+    <span id="/2023/12/14/表达式树/" class="leancloud_visitors" data-flag-title="表达式树">
+      <span class="iconfont icon-eye"></span>
+      <span class="post-meta-item-text">Page view </span>
+      <i class="leancloud-visitors-count"></i>
+    </span>
+  </div>
+
+
+
+  
+    <span class="post-wordcount iconfont icon-text"></span>
+    全站约 7,313 字
+  
+
+  <div class="license" style="padding: 0 10px;">
+    <span>
+    本站所有文章遵循许可协议 
+    <a target="_blank" rel="license noreferrer noopener" href="https://creativecommons.org/licenses/by-sa/4.0/">
+      Creative Commons Attribution-ShareAlike 4.0 International License
+    </a>
+    </span>
+  </div>
+
+  <div class="credit">
+    <span>Themed
+    <a href="https://github.com/sshwy/hexo-theme-essence" target="_blank" rel="noreferrer noopener">Essence v1.10.0</a>
+    | Powered by <a href="http://hexo.io" target="_blank" rel="noreferrer noopener">Hexo</a></span>
+  </div>
+
+  
+
+  <div class="copyright">
+    <span>Copyright &copy; 2019-2021 - fluffy-stoat</span>
+  </div>
+
+</footer>
+
+  
+  <script type="text/javascript">
+    var valine_path = 'error'
+  </script>
+
+  
+<script src="/js/ssimple.js?20250905.js"></script>
+<script src="https://pv.sohu.com/cityjson?ie=utf-8.js" defer></script>
+
+
+
+  <script type="text/javascript">
+    loadComments();
+    function loadComments() {
+      if (typeof Valine === 'undefined') {
+        var getScript = (options) => {
+          var script = document.createElement('script');
+          script.defer = true;
+          script.crossOrigin = 'anonymous';
+          Object.keys(options).forEach((key) => {
+            script[key] = options[key];
+          });
+          document.body.appendChild(script);
+        };
+        getScript({
+          src: 'https://cdn.jsdelivr.net/npm/valine',
+          onload: function () {
+            newValine();
+          }
+        });
+      } else {
+        newValine();
+      }
+    }
+    function newValine() {
+      if (valine_path[valine_path.length - 1] != '\/') valine_path = valine_path + '\/';
+      new Valine({
+        el: '#vcomments',
+        appId: '',
+        appKey: '',
+        placeholder: '',
+        serverURLs: '',
+        visitor: true,
+        recordIP: true,
+        requiredFields: ['nick', 'mail'],
+        avatar: 'retro',
+        path: valine_path
+      });
+    }
+  </script>
+
+</html>

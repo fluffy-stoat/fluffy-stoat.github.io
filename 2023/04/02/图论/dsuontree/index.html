@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+   
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="keywords" content="">
+  <meta name="description" content="Ov-">
+  <meta name="generator" content="Hexo 7.3.0">
+  <title>树上启发式合并（dsu on tree） - fluffy-stoat&#39;s Notes</title>
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+  
+<link rel="stylesheet" href="/css/ssimple.css?20250905.css">
+
+  
+<link rel="stylesheet" href="/iconfont/iconfont.css?20250905.css">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" 
+    crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(){
+      window.renderKatex();
+    });
+  </script>
+
+
+</head>
+
+  <body>
+    <header>
+  <div class="header" style="width: 100%;">
+    <div class="header-inner" style="position: fixed; z-index: 20; top: 0; left: 0;">
+      <div class="header-content" style="max-width: 1200px; margin: auto;">
+        <div class="blog-title">
+          <span class="iconfont icon-menu1" id="menu-button"></span>
+          <a href="/" class="logo header-title">
+            fluffy-stoat&#39;s Notes
+          </a>
+          
+            <div class="mobile-search">
+              <input type="text" />
+              <span class="iconfont icon-search mobile-search-icon"></span>
+              <span class="iconfont icon-baseline-close-px search-close-icon"></span>
+            </div>
+          
+        </div>
+        <div class="navbar" id="menu-list">
+          <ul class="menu">
+            
+          </ul>
+        </div>
+        
+          <div class="search">
+            <input type="text" />
+            <span class="iconfont icon-search search-icon"></span>
+            <span class="iconfont icon-baseline-close-px search-close-icon"></span>
+          </div>
+        
+      </div>
+    </div>
+    
+      <div class="search-shadow"> </div>
+      <div class="search-box">
+        <div class="search-container">
+  <div class="search-container-inner">
+    <div class="search-data-status">
+      <span>Fetching search data...</span>
+    </div>
+    <div class="search-count"></div>
+    <div class="search-result"></div>
+  </div>
+</div>
+      </div>
+    
+  </div>
+</header>
+
+    <main class="main">
+      <article class="post">
+  <div class="post-title">
+    <h1 class="page-title">树上启发式合并（dsu on tree）</h1>
+  </div>
+  <div class="post-meta">
+  <div class="post-info">
+    <span class="post-info-item post-time" title="2023年4月2日星期日上午11点23分 (CST+08:00)">
+      <span class="info-icon iconfont icon-time"></span>更新于 2023年4月2日
+    </span>
+    
+      <span class="icon infosep"></span><span class="post-info-item post-wordcount">
+        <span class="info-icon iconfont icon-text"></span>约 1,728 字
+      </span>
+    
+    
+  </div>
+  <div class="post-directory">
+    
+    <span class="iconfont icon-folder-close"></span>
+    <a class="directory" href="/directory">Home</a>
+    
+        
+        <a class="directory" href="/directory/">
+          
+        </a>
+        <span class="icon smallarrow"></span>
+    
+        
+        <a class="directory" href="/directory/%E5%9B%BE%E8%AE%BA/">
+          图论
+        </a>
+        <span class="icon smallarrow"></span>
+    
+    当前文章
+  </div>
+  
+  <hr />
+</div>
+   
+
+  
+    <div class="toc">
+  
+    <h2 class="toc-title">
+      <span
+       class="iconfont icon-explain" 
+       style="font-size: 1em;padding-right: 5px;"></span
+      >文章目录</h2>
+    <div class="toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#引入"><span class="toc-number">1.</span> <span class="toc-text">引入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#树上启发式合并（dsu-on-tree）"><span class="toc-number">2.</span> <span class="toc-text">树上启发式合并（dsu on tree）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对于本题"><span class="toc-number">3.</span> <span class="toc-text">对于本题</span></a></li></ol>
+    </div>
+    <hr />
+  </div>
+
+
+  <div class="post-content">
+    <h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p><a target="_blank" rel="noopener" href="http://www.nfls.com.cn:20035/contest/1517/problem/3" title="题目地址">题目地址</a></p>
+<p>题目大意：给一棵 $N$ 个点、有边权的树，求最小的不小于k的一条树上路径的长度。</p>
+<p>我的第一想法肯定是把每个节点的的信息不断像上传，同时还在这个节点的位置处理子树中到它和跨过它的路径的信息，但这样的复杂度是最坏 $\Theta(N^2)$ 的，只需要用一条链就可以轻松卡掉它。。。<br>看一眼数据范围，典型的要带一两个 $log$ 那怎么办，就引出我们的主题了：</p>
+<h2 id="树上启发式合并（dsu-on-tree）"><a href="#树上启发式合并（dsu-on-tree）" class="headerlink" title="树上启发式合并（dsu on tree）"></a>树上启发式合并（dsu on tree）</h2><p>这玩意乍一看很玄学，因为<em><strong>启发式</strong></em>就显得它很难懂，也很高大上，但事实上你只需要感性理解一下，放轻松~</p>
+<p>回忆一下重链剖分中，对于一棵树的一个节点，从根节点到它的轻边数是不超过 $log N$ 的[^1]，</p>
+<p>那我们便可以考虑对所有轻边连接的子树中的节点暴力进行遍历；<br>而对于重边连接的子树的信息我们则选择保留而不是传到父亲后重新遍历。</p>
+<p>这样一个节点总体上被遍历的次数便不会超过根节点到它的轻边数 $logN+1$ ，加 $1$ 是因为到它自己更新信息时要遍历它自己</p>
+<p>总时间复杂度便为 $\Theta(NlogN)$</p>
+<h2 id="对于本题"><a href="#对于本题" class="headerlink" title="对于本题"></a>对于本题</h2><p>说完了知识点总得回归到题目吧，对于这道题我们可以先 $\Theta(N)$ 求出每个节点到根节点的路径长度（即深度）、重儿子、子树大小、 dfs 序，</p>
+<p>然后我们用 set 维护那个要传着用的值，也就是重儿子那一棵子树上所有节点到根路径的长度，根据每次新暴力加进来的节点到当前节点的长度，用 lower_bound ( ) 查询最有希望成为和这个长度加起来更新答案的值，并更新答案。</p>
+<p>去除轻子树的影响时只需要在遍历完这棵子树后清空 set 即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">#define ll long long</span><br><span class="line">ll n,k,head[500005],cnt=1,a,b,c,d[500005],dfn[500005],r[500005],tot,hev[500005],size[500005],ans,dfnto[500005];</span><br><span class="line">struct edge&#123;</span><br><span class="line">	ll to,next,w;</span><br><span class="line">&#125;e[1000005];</span><br><span class="line">set&lt;ll&gt; s;</span><br><span class="line">void make(ll u,ll v,ll w)&#123;</span><br><span class="line">	e[cnt].to=v;</span><br><span class="line">	e[cnt].next=head[u];</span><br><span class="line">	e[cnt].w=w;</span><br><span class="line">	head[u]=cnt++;</span><br><span class="line">&#125;</span><br><span class="line">void dfs1(ll x,ll fa,ll depth)&#123;</span><br><span class="line">	d[x]=depth;</span><br><span class="line">	dfn[x]=++tot;</span><br><span class="line">	dfnto[tot]=x;</span><br><span class="line">	ll biggest=0;</span><br><span class="line">	for(int i=head[x];i;i=e[i].next)&#123;</span><br><span class="line">		if(e[i].to==fa)continue;</span><br><span class="line">		dfs1(e[i].to,x,depth+e[i].w);</span><br><span class="line">		size[x]+=size[e[i].to]+1;</span><br><span class="line">		if(size[e[i].to]+1&gt;biggest)</span><br><span class="line">		biggest=size[e[i].to]+1,hev[x]=e[i].to;</span><br><span class="line">	&#125;</span><br><span class="line">	r[x]=tot;</span><br><span class="line">&#125;</span><br><span class="line">void in(ll x,ll cut)&#123;</span><br><span class="line">	auto it=s.lower_bound(k-x+2*cut);</span><br><span class="line">	if(it!=s.end())&#123;</span><br><span class="line">		if(x+*it-2*cut&gt;=k)</span><br><span class="line">		ans=min(ans,x+*it-2*cut);</span><br><span class="line">	&#125;</span><br><span class="line">	else if(x-cut&gt;=k)ans=min(ans,x-cut);</span><br><span class="line">	s.insert(x);</span><br><span class="line">&#125;</span><br><span class="line">void dfs2(ll x,ll fa,ll add)&#123;</span><br><span class="line">	for(int i=head[x];i;i=e[i].next)&#123;</span><br><span class="line">		if(e[i].to!=hev[x]&amp;&amp;e[i].to!=fa)dfs2(e[i].to,x,0);</span><br><span class="line">	&#125;</span><br><span class="line">	if(hev[x])dfs2(hev[x],x,1);</span><br><span class="line">	for(int i=head[x];i;i=e[i].next)&#123;</span><br><span class="line">		if(e[i].to!=fa&amp;&amp;e[i].to!=hev[x])&#123;</span><br><span class="line">			for(int j=dfn[e[i].to];j&lt;=r[e[i].to];j++)&#123;</span><br><span class="line">				in(d[dfnto[j]],d[x]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	in(d[x],d[x]);</span><br><span class="line">	if(add==0)&#123;</span><br><span class="line">		s.clear();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	freopen(&quot;tree.in&quot;,&quot;r&quot;,stdin); </span><br><span class="line">	freopen(&quot;tree.out&quot;,&quot;w&quot;,stdout); </span><br><span class="line">	cin&gt;&gt;n&gt;&gt;k;</span><br><span class="line">	for(int i=1;i&lt;n;i++)&#123;</span><br><span class="line">		cin&gt;&gt;a&gt;&gt;b&gt;&gt;c;</span><br><span class="line">		make(b,a,c);</span><br><span class="line">		make(a,b,c);</span><br><span class="line">	&#125;</span><br><span class="line">	ans=1e18;</span><br><span class="line">	dfs1(1,0,0);</span><br><span class="line">	dfs2(1,0,0);</span><br><span class="line">	if(ans==1e18)</span><br><span class="line">	cout&lt;&lt;-1;</span><br><span class="line">	else</span><br><span class="line">	cout&lt;&lt;ans;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[^1]: 证明：设 $x$ 为根节点到该节点的轻边数， $y$ 为该节点的子树大小，那么因为轻边连接的子树最大不大于它的父节点的子树大小的一半，所以有 $y&lt;&#x3D;\cfrac{N}{2^x}$ ，所以$x&lt;logN$</p>
+
+  </div>
+  
+  <hr>
+  <h3><span class="iconfont icon-history" style="padding-right: 5px;font-size: 1em;"></span>修订记录</h3>
+  <div class="post-history-list"><ol reversed>
+    
+      <li class="post-history-item">
+        2023年4月2日 第3次修订 
+      </li>
+    
+      <li class="post-history-item">
+        2023年4月2日 第2次修订 
+      </li>
+    
+      <li class="post-history-item">
+        2023年3月29日 创建文章 
+      </li>
+     
+  </ol></div>
+
+  <div class="post-footer">
+  <hr>
+  
+    <div class="next-post">
+      <span class="iconfont icon-arrow-left-circle"></span> 
+      <a href="/2023/04/02/DP/四边形不等式优化/">
+        四边形不等式优化
+      </a>
+    </div>
+  
+  
+    <div class="prev-post">
+      <a href="/2023/04/30/DP/树上组合计数/">
+        树上组合计数
+      </a> 
+      <span class="iconfont icon-arrow-right-circle"></span>
+    </div>
+  
+</div>
+</article>
+
+
+  <div id="vcomments"></div>
+
+
+    </main>
+  </body>
+  <div class="side-button">
+  
+    <div id="comment-button" class="button" title="Valine Comment" >
+      <span class="iconfont icon-comment"></span>
+    </div>
+  
+    <div id="darkmode-button" class="button" title="Switch between day and night" >
+      <span class="iconfont icon-moonbyueliang"></span>
+    </div>
+  
+    <div id="top" class="button" title="Back to top" >
+      <span class="iconfont icon-arrowup"></span>
+    </div>
+  
+</div>
+
+  <footer id="footer" style="margin: 3em 0 2em 0; text-align: center; line-height: 1.4em">
+
+  
+  <div class="visitor">
+    <span id="/2023/12/14/表达式树/" class="leancloud_visitors" data-flag-title="表达式树">
+      <span class="iconfont icon-eye"></span>
+      <span class="post-meta-item-text">Page view </span>
+      <i class="leancloud-visitors-count"></i>
+    </span>
+  </div>
+
+
+
+  
+    <span class="post-wordcount iconfont icon-text"></span>
+    全站约 7,313 字
+  
+
+  <div class="license" style="padding: 0 10px;">
+    <span>
+    本站所有文章遵循许可协议 
+    <a target="_blank" rel="license noreferrer noopener" href="https://creativecommons.org/licenses/by-sa/4.0/">
+      Creative Commons Attribution-ShareAlike 4.0 International License
+    </a>
+    </span>
+  </div>
+
+  <div class="credit">
+    <span>Themed
+    <a href="https://github.com/sshwy/hexo-theme-essence" target="_blank" rel="noreferrer noopener">Essence v1.10.0</a>
+    | Powered by <a href="http://hexo.io" target="_blank" rel="noreferrer noopener">Hexo</a></span>
+  </div>
+
+  
+
+  <div class="copyright">
+    <span>Copyright &copy; 2019-2021 - fluffy-stoat</span>
+  </div>
+
+</footer>
+
+  
+  <script type="text/javascript">
+    var valine_path = 'error'
+  </script>
+
+  
+<script src="/js/ssimple.js?20250905.js"></script>
+<script src="https://pv.sohu.com/cityjson?ie=utf-8.js" defer></script>
+
+
+
+  <script type="text/javascript">
+    loadComments();
+    function loadComments() {
+      if (typeof Valine === 'undefined') {
+        var getScript = (options) => {
+          var script = document.createElement('script');
+          script.defer = true;
+          script.crossOrigin = 'anonymous';
+          Object.keys(options).forEach((key) => {
+            script[key] = options[key];
+          });
+          document.body.appendChild(script);
+        };
+        getScript({
+          src: 'https://cdn.jsdelivr.net/npm/valine',
+          onload: function () {
+            newValine();
+          }
+        });
+      } else {
+        newValine();
+      }
+    }
+    function newValine() {
+      if (valine_path[valine_path.length - 1] != '\/') valine_path = valine_path + '\/';
+      new Valine({
+        el: '#vcomments',
+        appId: '',
+        appKey: '',
+        placeholder: '',
+        serverURLs: '',
+        visitor: true,
+        recordIP: true,
+        requiredFields: ['nick', 'mail'],
+        avatar: 'retro',
+        path: valine_path
+      });
+    }
+  </script>
+
+</html>

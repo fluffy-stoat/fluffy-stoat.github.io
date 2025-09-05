@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+   
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="keywords" content="">
+  <meta name="description" content="Ov-">
+  <meta name="generator" content="Hexo 7.3.0">
+  <title>区间数颜色&amp;树上区间并求和 - fluffy-stoat&#39;s Notes</title>
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+  
+<link rel="stylesheet" href="/css/ssimple.css?20250905.css">
+
+  
+<link rel="stylesheet" href="/iconfont/iconfont.css?20250905.css">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" 
+    crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(){
+      window.renderKatex();
+    });
+  </script>
+
+
+</head>
+
+  <body>
+    <header>
+  <div class="header" style="width: 100%;">
+    <div class="header-inner" style="position: fixed; z-index: 20; top: 0; left: 0;">
+      <div class="header-content" style="max-width: 1200px; margin: auto;">
+        <div class="blog-title">
+          <span class="iconfont icon-menu1" id="menu-button"></span>
+          <a href="/" class="logo header-title">
+            fluffy-stoat&#39;s Notes
+          </a>
+          
+            <div class="mobile-search">
+              <input type="text" />
+              <span class="iconfont icon-search mobile-search-icon"></span>
+              <span class="iconfont icon-baseline-close-px search-close-icon"></span>
+            </div>
+          
+        </div>
+        <div class="navbar" id="menu-list">
+          <ul class="menu">
+            
+          </ul>
+        </div>
+        
+          <div class="search">
+            <input type="text" />
+            <span class="iconfont icon-search search-icon"></span>
+            <span class="iconfont icon-baseline-close-px search-close-icon"></span>
+          </div>
+        
+      </div>
+    </div>
+    
+      <div class="search-shadow"> </div>
+      <div class="search-box">
+        <div class="search-container">
+  <div class="search-container-inner">
+    <div class="search-data-status">
+      <span>Fetching search data...</span>
+    </div>
+    <div class="search-count"></div>
+    <div class="search-result"></div>
+  </div>
+</div>
+      </div>
+    
+  </div>
+</header>
+
+    <main class="main">
+      <article class="post">
+  <div class="post-title">
+    <h1 class="page-title">区间数颜色&amp;树上区间并求和</h1>
+  </div>
+  <div class="post-meta">
+  <div class="post-info">
+    <span class="post-info-item post-time" title="2023年10月25日星期三上午9点18分 (CST+08:00)">
+      <span class="info-icon iconfont icon-time"></span>更新于 2023年10月25日
+    </span>
+    
+      <span class="icon infosep"></span><span class="post-info-item post-wordcount">
+        <span class="info-icon iconfont icon-text"></span>约 2,116 字
+      </span>
+    
+    
+  </div>
+  <div class="post-directory">
+    
+    <span class="iconfont icon-folder-close"></span>
+    <a class="directory" href="/directory">Home</a>
+    
+        
+        <a class="directory" href="/directory/">
+          
+        </a>
+        <span class="icon smallarrow"></span>
+    
+        
+        <a class="directory" href="/directory/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+          数据结构
+        </a>
+        <span class="icon smallarrow"></span>
+    
+    当前文章
+  </div>
+  
+  <hr />
+</div>
+   
+
+  
+    <div class="toc" style="display: none;" >
+  
+    <h2 class="toc-title">
+      <span
+       class="iconfont icon-explain" 
+       style="font-size: 1em;padding-right: 5px;"></span
+      >文章目录</h2>
+    <div class="toc-content">
+      
+    </div>
+    <hr />
+  </div>
+
+
+  <div class="post-content">
+    <p>首先是比较简单的那一个——</p>
+<p>给一个链，上面一堆带颜色点，每次询问区间内不同颜色个数。</p>
+<p>考虑把询问按右端点排序，从左往右扫这个链，每扫到一个颜色就把他到上一次出现此颜色的区间集体加1，用树状数组支持区间加单点查，查一个位置的含义是当左端点在这个位置时区间内不同颜色的个数。</p>
+<p>这个是朴素的。</p>
+<p>接下来上一点难度——</p>
+<p>还是一个链，但是每个点有点权，给一些区间，每次查询一个区间内的区间的并里包含点的权值和。</p>
+<p>这个比较棘手，但还是可以考虑把询问按右端点从小到大排序，从左到右扫那些区间，扫到一个区间，这个区间内的点就挨个给他们到他们上一次出现那一段时间的贡献加上自己的贡献，再集体打上当前的时间标记。</p>
+<p>暴力肯定是不行的，但是可以用线段树辅助操作，考虑到每一次操作最多只会分裂出原来的两个区域，而且吞掉原来的断点以后那些端点就不会存在，他覆盖的区间会变成一个整块，所以在线段树上暴力去找区间覆盖同一个标记的先加，再最后对一个大区间覆盖新标记并减，这样干时间复杂度甚至均摊并不占主要部分，而是线段树加树状数组操作的$O(log^2n)$。</p>
+<p>最后是正题——</p>
+<p>树上区间并求和，当然给出的区间也都是一些两点之间的路径。</p>
+<p>前面链的部分其实已经说完了，树链剖分一下就没了，这回是$O(nlog^3n)$的</p>
+<p><a target="_blank" rel="noopener" href="http://www.nfls.com.cn:10611/contest/1023/problem/4">原题在这里</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">#define ll long long </span><br><span class="line">#define ld long double </span><br><span class="line">#define gtc() getchar()</span><br><span class="line">#define fp(i,l,r) for(int i=l;i&lt;=r;i++)</span><br><span class="line">#define fb(i,l,r) for(int i=l;i&gt;=r;i--)</span><br><span class="line">#define pil pair&lt;int,long long&gt;</span><br><span class="line">#define pii pair&lt;int,int&gt;</span><br><span class="line">template &lt;class T&gt;</span><br><span class="line">inline void read(T &amp;s)&#123;</span><br><span class="line">    T neg=1,ch=gtc();s=0;</span><br><span class="line">    while(!isdigit(ch))&#123;if(ch==&#x27;-&#x27;)neg=-1;ch=gtc();&#125;</span><br><span class="line">    while(isdigit(ch))&#123;s=(s&lt;&lt;3)+(s&lt;&lt;1)+(ch-&#x27;0&#x27;);ch=gtc();&#125;</span><br><span class="line">    s=s*neg;</span><br><span class="line">&#125;</span><br><span class="line">const ll N=100050;</span><br><span class="line">ll n,m,q,dfn[N],dep[N],sz[N],son[N],a[N],top[N],tot,tag[N*10],t[N],pre[N],ans[N],f[N];</span><br><span class="line">vector&lt;int&gt; e[N];</span><br><span class="line">pii qr[N];</span><br><span class="line">struct fqr&#123;</span><br><span class="line">    ll l,r,p;</span><br><span class="line">    bool operator &lt;(const fqr &amp;x)const&#123;</span><br><span class="line">        return r&lt;x.r;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;qs[N];</span><br><span class="line">void dfs(ll x,ll fa)&#123;</span><br><span class="line">    f[x]=fa;</span><br><span class="line">    dep[x]=dep[fa]+1;</span><br><span class="line">    sz[x]=1;</span><br><span class="line">    for(auto i:e[x])&#123;</span><br><span class="line">        if(i==fa)continue;</span><br><span class="line">        dfs(i,x);</span><br><span class="line">        sz[x]+=sz[i];</span><br><span class="line">        if(sz[i]&gt;sz[son[x]])son[x]=i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">void dfs2(ll x,ll fa,ll tp)&#123;</span><br><span class="line">    top[x]=tp;</span><br><span class="line">    dfn[x]=++tot;</span><br><span class="line">    if(son[x])dfs2(son[x],x,tp);</span><br><span class="line">    for(auto i:e[x])&#123;</span><br><span class="line">        if(i==fa||i==son[x])continue;</span><br><span class="line">        dfs2(i,x,i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">ll lowbit(ll x)&#123;return x&amp;(-x);&#125;</span><br><span class="line">void add(ll x,ll v)&#123;</span><br><span class="line">    for(int i=x;i&lt;=m;i+=lowbit(i))t[i]+=v;</span><br><span class="line">&#125;</span><br><span class="line">ll query(ll x)&#123;</span><br><span class="line">    ll res=0;</span><br><span class="line">    for(int i=x;i;i-=lowbit(i))res+=t[i];</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line">void modify(ll x,ll l,ll r,ll tl,ll tr,ll v)&#123;</span><br><span class="line">    if(l&gt;=tl&amp;&amp;r&lt;=tr)&#123;</span><br><span class="line">        add(v+1,pre[l-1]-pre[r]);</span><br><span class="line">        tag[x]=v;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    ll nxt=x&lt;&lt;1,mid=(l+r)&gt;&gt;1;</span><br><span class="line">    if(tag[x]!=-1)&#123;</span><br><span class="line">        tag[nxt]=tag[x];</span><br><span class="line">        tag[nxt+1]=tag[x];</span><br><span class="line">        tag[x]=-1;</span><br><span class="line">    &#125;</span><br><span class="line">    if(tl&lt;=mid)modify(nxt,l,mid,tl,tr,v);</span><br><span class="line">    if(tr&gt;mid)modify(nxt+1,mid+1,r,tl,tr,v);</span><br><span class="line">&#125;</span><br><span class="line">void del(ll x,ll l,ll r,ll tl,ll tr)&#123;</span><br><span class="line">    if(l&gt;=tl&amp;&amp;r&lt;=tr&amp;&amp;tag[x]!=-1)&#123;</span><br><span class="line">        add(tag[x]+1,pre[r]-pre[l-1]);</span><br><span class="line">        return ;</span><br><span class="line">    &#125;</span><br><span class="line">    ll nxt=x&lt;&lt;1,mid=(l+r)&gt;&gt;1;</span><br><span class="line">    if(tag[x]!=-1)&#123;</span><br><span class="line">        tag[nxt]=tag[x];</span><br><span class="line">        tag[nxt+1]=tag[x];</span><br><span class="line">        tag[x]=-1;</span><br><span class="line">    &#125;</span><br><span class="line">    if(tl&lt;=mid)del(nxt,l,mid,tl,tr);</span><br><span class="line">    if(tr&gt;mid)del(nxt+1,mid+1,r,tl,tr);</span><br><span class="line">&#125;</span><br><span class="line">void upd(ll x)&#123;</span><br><span class="line">    ll nx=qr[x].first,ny=qr[x].second;</span><br><span class="line">    while(top[nx]!=top[ny])&#123;</span><br><span class="line">        if(dep[top[nx]]&gt;dep[top[ny]])swap(nx,ny);</span><br><span class="line">        del(1,1,n,dfn[top[ny]],dfn[ny]);</span><br><span class="line">        modify(1,1,n,dfn[top[ny]],dfn[ny],x);</span><br><span class="line">        ny=f[top[ny]];</span><br><span class="line">    &#125;</span><br><span class="line">    del(1,1,n,min(dfn[nx],dfn[ny]),max(dfn[nx],dfn[ny]));</span><br><span class="line">    modify(1,1,n,min(dfn[nx],dfn[ny]),max(dfn[nx],dfn[ny]),x);</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    freopen(&quot;star.in&quot;,&quot;r&quot;,stdin);</span><br><span class="line">    freopen(&quot;star.out&quot;,&quot;w&quot;,stdout);</span><br><span class="line">    read(n),read(m),read(q);</span><br><span class="line">    fp(i,1,n)read(a[i]);</span><br><span class="line">    fp(i,1,n-1)&#123;</span><br><span class="line">        ll u,v;</span><br><span class="line">        read(u),read(v);</span><br><span class="line">        e[u].emplace_back(v);</span><br><span class="line">        e[v].emplace_back(u);</span><br><span class="line">    &#125;</span><br><span class="line">    fp(i,1,m)read(qr[i].first),read(qr[i].second);</span><br><span class="line">    fp(i,1,q)read(qs[i].l),read(qs[i].r),qs[i].p=i;</span><br><span class="line">    sort(qs+1,qs+1+q);</span><br><span class="line">    dfs(1,0);</span><br><span class="line">    dfs2(1,0,1);</span><br><span class="line">    fp(i,1,n)pre[dfn[i]]+=a[i];</span><br><span class="line">    fp(i,1,n)pre[i]+=pre[i-1];</span><br><span class="line">    ll nr=0;</span><br><span class="line">    fp(i,1,q)&#123;</span><br><span class="line">        while(nr&lt;qs[i].r)upd(++nr);</span><br><span class="line">        ans[qs[i].p]=query(qs[i].l);</span><br><span class="line">    &#125;</span><br><span class="line">    fp(i,1,q)printf(&quot;%lld\n&quot;,ans[i]);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  <hr>
+  <h3><span class="iconfont icon-history" style="padding-right: 5px;font-size: 1em;"></span>修订记录</h3>
+  <div class="post-history-list"><ol reversed>
+    
+      <li class="post-history-item">
+        2023年10月25日 创建文章 
+      </li>
+     
+  </ol></div>
+
+  <div class="post-footer">
+  <hr>
+  
+    <div class="next-post">
+      <span class="iconfont icon-arrow-left-circle"></span> 
+      <a href="/2023/10/25/杂题选讲/模拟退火/">
+        模拟退火
+      </a>
+    </div>
+  
+  
+    <div class="prev-post">
+      <a href="/2023/10/25/图论/连通性专题/">
+        连通性专题
+      </a> 
+      <span class="iconfont icon-arrow-right-circle"></span>
+    </div>
+  
+</div>
+</article>
+
+
+  <div id="vcomments"></div>
+
+
+    </main>
+  </body>
+  <div class="side-button">
+  
+    <div id="comment-button" class="button" title="Valine Comment" >
+      <span class="iconfont icon-comment"></span>
+    </div>
+  
+    <div id="darkmode-button" class="button" title="Switch between day and night" >
+      <span class="iconfont icon-moonbyueliang"></span>
+    </div>
+  
+    <div id="top" class="button" title="Back to top" >
+      <span class="iconfont icon-arrowup"></span>
+    </div>
+  
+</div>
+
+  <footer id="footer" style="margin: 3em 0 2em 0; text-align: center; line-height: 1.4em">
+
+  
+  <div class="visitor">
+    <span id="/2023/12/14/表达式树/" class="leancloud_visitors" data-flag-title="表达式树">
+      <span class="iconfont icon-eye"></span>
+      <span class="post-meta-item-text">Page view </span>
+      <i class="leancloud-visitors-count"></i>
+    </span>
+  </div>
+
+
+
+  
+    <span class="post-wordcount iconfont icon-text"></span>
+    全站约 7,313 字
+  
+
+  <div class="license" style="padding: 0 10px;">
+    <span>
+    本站所有文章遵循许可协议 
+    <a target="_blank" rel="license noreferrer noopener" href="https://creativecommons.org/licenses/by-sa/4.0/">
+      Creative Commons Attribution-ShareAlike 4.0 International License
+    </a>
+    </span>
+  </div>
+
+  <div class="credit">
+    <span>Themed
+    <a href="https://github.com/sshwy/hexo-theme-essence" target="_blank" rel="noreferrer noopener">Essence v1.10.0</a>
+    | Powered by <a href="http://hexo.io" target="_blank" rel="noreferrer noopener">Hexo</a></span>
+  </div>
+
+  
+
+  <div class="copyright">
+    <span>Copyright &copy; 2019-2021 - fluffy-stoat</span>
+  </div>
+
+</footer>
+
+  
+  <script type="text/javascript">
+    var valine_path = 'error'
+  </script>
+
+  
+<script src="/js/ssimple.js?20250905.js"></script>
+<script src="https://pv.sohu.com/cityjson?ie=utf-8.js" defer></script>
+
+
+
+  <script type="text/javascript">
+    loadComments();
+    function loadComments() {
+      if (typeof Valine === 'undefined') {
+        var getScript = (options) => {
+          var script = document.createElement('script');
+          script.defer = true;
+          script.crossOrigin = 'anonymous';
+          Object.keys(options).forEach((key) => {
+            script[key] = options[key];
+          });
+          document.body.appendChild(script);
+        };
+        getScript({
+          src: 'https://cdn.jsdelivr.net/npm/valine',
+          onload: function () {
+            newValine();
+          }
+        });
+      } else {
+        newValine();
+      }
+    }
+    function newValine() {
+      if (valine_path[valine_path.length - 1] != '\/') valine_path = valine_path + '\/';
+      new Valine({
+        el: '#vcomments',
+        appId: '',
+        appKey: '',
+        placeholder: '',
+        serverURLs: '',
+        visitor: true,
+        recordIP: true,
+        requiredFields: ['nick', 'mail'],
+        avatar: 'retro',
+        path: valine_path
+      });
+    }
+  </script>
+
+</html>

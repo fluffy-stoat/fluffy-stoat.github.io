@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+   
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="keywords" content="">
+  <meta name="description" content="Ov-">
+  <meta name="generator" content="Hexo 7.3.0">
+  <title>二项式定理 - fluffy-stoat&#39;s Notes</title>
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+  
+<link rel="stylesheet" href="/css/ssimple.css?20250905.css">
+
+  
+<link rel="stylesheet" href="/iconfont/iconfont.css?20250905.css">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" 
+    crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(){
+      window.renderKatex();
+    });
+  </script>
+
+
+</head>
+
+  <body>
+    <header>
+  <div class="header" style="width: 100%;">
+    <div class="header-inner" style="position: fixed; z-index: 20; top: 0; left: 0;">
+      <div class="header-content" style="max-width: 1200px; margin: auto;">
+        <div class="blog-title">
+          <span class="iconfont icon-menu1" id="menu-button"></span>
+          <a href="/" class="logo header-title">
+            fluffy-stoat&#39;s Notes
+          </a>
+          
+            <div class="mobile-search">
+              <input type="text" />
+              <span class="iconfont icon-search mobile-search-icon"></span>
+              <span class="iconfont icon-baseline-close-px search-close-icon"></span>
+            </div>
+          
+        </div>
+        <div class="navbar" id="menu-list">
+          <ul class="menu">
+            
+          </ul>
+        </div>
+        
+          <div class="search">
+            <input type="text" />
+            <span class="iconfont icon-search search-icon"></span>
+            <span class="iconfont icon-baseline-close-px search-close-icon"></span>
+          </div>
+        
+      </div>
+    </div>
+    
+      <div class="search-shadow"> </div>
+      <div class="search-box">
+        <div class="search-container">
+  <div class="search-container-inner">
+    <div class="search-data-status">
+      <span>Fetching search data...</span>
+    </div>
+    <div class="search-count"></div>
+    <div class="search-result"></div>
+  </div>
+</div>
+      </div>
+    
+  </div>
+</header>
+
+    <main class="main">
+      <article class="post">
+  <div class="post-title">
+    <h1 class="page-title">二项式定理</h1>
+  </div>
+  <div class="post-meta">
+  <div class="post-info">
+    <span class="post-info-item post-time" title="2023年4月2日星期日上午11点08分 (CST+08:00)">
+      <span class="info-icon iconfont icon-time"></span>更新于 2023年4月2日
+    </span>
+    
+      <span class="icon infosep"></span><span class="post-info-item post-wordcount">
+        <span class="info-icon iconfont icon-text"></span>约 785 字
+      </span>
+    
+    
+  </div>
+  <div class="post-directory">
+    
+    <span class="iconfont icon-folder-close"></span>
+    <a class="directory" href="/directory">Home</a>
+    
+        
+        <a class="directory" href="/directory/">
+          
+        </a>
+        <span class="icon smallarrow"></span>
+    
+        
+        <a class="directory" href="/directory/%E6%95%B0%E5%AD%A6/">
+          数学
+        </a>
+        <span class="icon smallarrow"></span>
+    
+    当前文章
+  </div>
+  
+  <hr />
+</div>
+   
+
+  
+    <div class="toc" style="display: none;" >
+  
+    <h2 class="toc-title">
+      <span
+       class="iconfont icon-explain" 
+       style="font-size: 1em;padding-right: 5px;"></span
+      >文章目录</h2>
+    <div class="toc-content">
+      
+    </div>
+    <hr />
+  </div>
+
+
+  <div class="post-content">
+    <p>$$<br>(x+y)^n&#x3D;\sum_{i&#x3D;0}^{n}{n\choose i}x^{n-i}y^{i}&#x3D;\sum_{i&#x3D;0}^{n}{n\choose i}x^{i}y^{n-i}<br>$$</p>
+<p>证明：数学归纳法：</p>
+<p>下界：当$\displaystyle n&#x3D;1$时，$(x+y)^1&#x3D;\sum_{i&#x3D;0}^{1}{1\choose i}x^{1-i}y^{i}&#x3D;{1\choose 0}x^{1}y^{0}+{1\choose 1}x^{0}y^{1}&#x3D;x+y$，此时定理显然成立</p>
+<p>那么当 $n$ 成立时，对于 $n+1$ 有：</p>
+<p>$$<br>(x+y)^{n+1}<br>$$</p>
+<p>拆出一个$(x+y)$</p>
+<p>$$<br>&#x3D;x(x+y)^n+y(x+y)^n<br>$$</p>
+<p>按定理代入</p>
+<p>$$<br>&#x3D;x\sum_{i&#x3D;0}^{n}{n\choose i}x^{n-i}y^{i}+y\sum_{j&#x3D;0}^{n}{n\choose j}x^{n-j}y^{j}<br>$$</p>
+<p>把 $x$ 和 $y$ 乘进去</p>
+<p>$$<br>&#x3D;\sum_{i&#x3D;0}^{n}{n\choose i}x^{n-i+1}y^{i}+\sum_{j&#x3D;0}^{n}{n\choose j}x^{n-j}y^{j+1}<br>$$</p>
+<p>取出首和尾</p>
+<p>$$<br>&#x3D;x^{n+1}+\sum_{i&#x3D;1}^{n}{n\choose i}x^{n-i+1}y^{i}+\sum_{j&#x3D;0}^{n-1}{n\choose j}x^{n-j}y^{j+1}+y^{n+1}<br>$$</p>
+<p>把 $j$ 换成 $i-1$</p>
+<p>$$<br>&#x3D;x^{n+1}+\sum_{i&#x3D;1}^{n}{n\choose i}x^{n-i+1}y^{i}+\sum_{i&#x3D;1}^{n}{n\choose i-1}x^{n-i+1}y^{i}+y^{n+1}<br>$$</p>
+<p>合并两个sum</p>
+<p>$$<br>&#x3D;x^{n+1}+\sum_{i&#x3D;1}^{n}\bigg({n\choose i}+{n\choose i-1}\bigg)x^{n-i+1}y^{i}+y^{n+1}<br>$$</p>
+<p>根据组合数的性质合并两个组合数的和[^1]</p>
+<p>$$<br>&#x3D;x^{n+1}+\sum_{i&#x3D;1}^{n}{n+1\choose i}x^{n-i+1}y^{i}+y^{n+1}<br>$$</p>
+<p>因为 $1&#x3D;{n+1\choose 0}$ 且 $1&#x3D;{n+1\choose n+1}$ ，所以可以把 $x^{n+1}$ 和 $y^{n+1}$ 合并入sum</p>
+<p>$$<br>&#x3D;\sum_{i&#x3D;0}^{n+1}{n+1\choose i}x^{(n+1)-i}y^{i}<br>$$</p>
+<p>显然仍符合二项式定理</p>
+<p>证毕</p>
+<p>其实还有更简单的感性理解一下：</p>
+<p>考虑组合数定义，每种二项式得到的次数可以看作你在 $n$ 个数对中选出其中一项的指数个的不同的方案数，也就是${n\choose 指数}$，加起来就成了整个式子。</p>
+<p>[^1]: ${n\choose m}&#x3D;{n-1\choose m}+{n-1\choose m-1}$，$n$个数里选$k$个数的方案数即：选当前这个数和不选这个数的方案数的和</p>
+
+  </div>
+  
+  <hr>
+  <h3><span class="iconfont icon-history" style="padding-right: 5px;font-size: 1em;"></span>修订记录</h3>
+  <div class="post-history-list"><ol reversed>
+    
+      <li class="post-history-item">
+        2023年4月2日 创建文章 
+      </li>
+     
+  </ol></div>
+
+  <div class="post-footer">
+  <hr>
+  
+    <div class="next-post">
+      <span class="iconfont icon-arrow-left-circle"></span> 
+      <a href="/2023/04/02/数学/扩展欧几里得算法/">
+        扩展欧几里得算法
+      </a>
+    </div>
+  
+  
+    <div class="prev-post">
+      <a href="/2023/04/02/数学/二项式反演/">
+        二项式反演
+      </a> 
+      <span class="iconfont icon-arrow-right-circle"></span>
+    </div>
+  
+</div>
+</article>
+
+
+  <div id="vcomments"></div>
+
+
+    </main>
+  </body>
+  <div class="side-button">
+  
+    <div id="comment-button" class="button" title="Valine Comment" >
+      <span class="iconfont icon-comment"></span>
+    </div>
+  
+    <div id="darkmode-button" class="button" title="Switch between day and night" >
+      <span class="iconfont icon-moonbyueliang"></span>
+    </div>
+  
+    <div id="top" class="button" title="Back to top" >
+      <span class="iconfont icon-arrowup"></span>
+    </div>
+  
+</div>
+
+  <footer id="footer" style="margin: 3em 0 2em 0; text-align: center; line-height: 1.4em">
+
+  
+  <div class="visitor">
+    <span id="/2023/12/14/表达式树/" class="leancloud_visitors" data-flag-title="表达式树">
+      <span class="iconfont icon-eye"></span>
+      <span class="post-meta-item-text">Page view </span>
+      <i class="leancloud-visitors-count"></i>
+    </span>
+  </div>
+
+
+
+  
+    <span class="post-wordcount iconfont icon-text"></span>
+    全站约 7,313 字
+  
+
+  <div class="license" style="padding: 0 10px;">
+    <span>
+    本站所有文章遵循许可协议 
+    <a target="_blank" rel="license noreferrer noopener" href="https://creativecommons.org/licenses/by-sa/4.0/">
+      Creative Commons Attribution-ShareAlike 4.0 International License
+    </a>
+    </span>
+  </div>
+
+  <div class="credit">
+    <span>Themed
+    <a href="https://github.com/sshwy/hexo-theme-essence" target="_blank" rel="noreferrer noopener">Essence v1.10.0</a>
+    | Powered by <a href="http://hexo.io" target="_blank" rel="noreferrer noopener">Hexo</a></span>
+  </div>
+
+  
+
+  <div class="copyright">
+    <span>Copyright &copy; 2019-2021 - fluffy-stoat</span>
+  </div>
+
+</footer>
+
+  
+  <script type="text/javascript">
+    var valine_path = 'error'
+  </script>
+
+  
+<script src="/js/ssimple.js?20250905.js"></script>
+<script src="https://pv.sohu.com/cityjson?ie=utf-8.js" defer></script>
+
+
+
+  <script type="text/javascript">
+    loadComments();
+    function loadComments() {
+      if (typeof Valine === 'undefined') {
+        var getScript = (options) => {
+          var script = document.createElement('script');
+          script.defer = true;
+          script.crossOrigin = 'anonymous';
+          Object.keys(options).forEach((key) => {
+            script[key] = options[key];
+          });
+          document.body.appendChild(script);
+        };
+        getScript({
+          src: 'https://cdn.jsdelivr.net/npm/valine',
+          onload: function () {
+            newValine();
+          }
+        });
+      } else {
+        newValine();
+      }
+    }
+    function newValine() {
+      if (valine_path[valine_path.length - 1] != '\/') valine_path = valine_path + '\/';
+      new Valine({
+        el: '#vcomments',
+        appId: '',
+        appKey: '',
+        placeholder: '',
+        serverURLs: '',
+        visitor: true,
+        recordIP: true,
+        requiredFields: ['nick', 'mail'],
+        avatar: 'retro',
+        path: valine_path
+      });
+    }
+  </script>
+
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+   
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="keywords" content="">
+  <meta name="description" content="Ov-">
+  <meta name="generator" content="Hexo 7.3.0">
+  <title>小技巧（1） - fluffy-stoat&#39;s Notes</title>
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+  
+<link rel="stylesheet" href="/css/ssimple.css?20250905.css">
+
+  
+<link rel="stylesheet" href="/iconfont/iconfont.css?20250905.css">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" 
+    crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(){
+      window.renderKatex();
+    });
+  </script>
+
+
+</head>
+
+  <body>
+    <header>
+  <div class="header" style="width: 100%;">
+    <div class="header-inner" style="position: fixed; z-index: 20; top: 0; left: 0;">
+      <div class="header-content" style="max-width: 1200px; margin: auto;">
+        <div class="blog-title">
+          <span class="iconfont icon-menu1" id="menu-button"></span>
+          <a href="/" class="logo header-title">
+            fluffy-stoat&#39;s Notes
+          </a>
+          
+            <div class="mobile-search">
+              <input type="text" />
+              <span class="iconfont icon-search mobile-search-icon"></span>
+              <span class="iconfont icon-baseline-close-px search-close-icon"></span>
+            </div>
+          
+        </div>
+        <div class="navbar" id="menu-list">
+          <ul class="menu">
+            
+          </ul>
+        </div>
+        
+          <div class="search">
+            <input type="text" />
+            <span class="iconfont icon-search search-icon"></span>
+            <span class="iconfont icon-baseline-close-px search-close-icon"></span>
+          </div>
+        
+      </div>
+    </div>
+    
+      <div class="search-shadow"> </div>
+      <div class="search-box">
+        <div class="search-container">
+  <div class="search-container-inner">
+    <div class="search-data-status">
+      <span>Fetching search data...</span>
+    </div>
+    <div class="search-count"></div>
+    <div class="search-result"></div>
+  </div>
+</div>
+      </div>
+    
+  </div>
+</header>
+
+    <main class="main">
+      <article class="post">
+  <div class="post-title">
+    <h1 class="page-title">小技巧（1）</h1>
+  </div>
+  <div class="post-meta">
+  <div class="post-info">
+    <span class="post-info-item post-time" title="2023年7月17日星期一晚上10点23分 (CST+08:00)">
+      <span class="info-icon iconfont icon-time"></span>更新于 2023年7月17日
+    </span>
+    
+      <span class="icon infosep"></span><span class="post-info-item post-wordcount">
+        <span class="info-icon iconfont icon-text"></span>约 1,267 字
+      </span>
+    
+    
+  </div>
+  <div class="post-directory">
+    
+    <span class="iconfont icon-folder-close"></span>
+    <a class="directory" href="/directory">Home</a>
+    
+        
+        <a class="directory" href="/directory/">
+          
+        </a>
+        <span class="icon smallarrow"></span>
+    
+        
+        <a class="directory" href="/directory/%E6%9D%82%E9%A2%98%E9%80%89%E8%AE%B2/">
+          杂题选讲
+        </a>
+        <span class="icon smallarrow"></span>
+    
+    当前文章
+  </div>
+  
+  <hr />
+</div>
+   
+
+  
+    <div class="toc">
+  
+    <h2 class="toc-title">
+      <span
+       class="iconfont icon-explain" 
+       style="font-size: 1em;padding-right: 5px;"></span
+      >文章目录</h2>
+    <div class="toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#DP瓶颈解决思路"><span class="toc-number">1.</span> <span class="toc-text">DP瓶颈解决思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数量级小结论"><span class="toc-number">2.</span> <span class="toc-text">数量级小结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图上小结论"><span class="toc-number">3.</span> <span class="toc-text">图上小结论</span></a></li></ol>
+    </div>
+    <hr />
+  </div>
+
+
+  <div class="post-content">
+    <h2 id="DP瓶颈解决思路"><a href="#DP瓶颈解决思路" class="headerlink" title="DP瓶颈解决思路"></a>DP瓶颈解决思路</h2><p>有些时候我们可能会遇到在dp中状态开不下的问题，可以考虑把状态和存储内容互换，尽可能使状态简洁，同时不要过快否决转换的思想，正确性的证明？ <del>（打完比赛再说，说不定试出来是对的呢）</del> 除了知识储备还是要对自己有一点信心。</p>
+<p>例：<br>接下来$n(1\le n\le 2000)$天，每天有$a_i(1\le a_i\le 5*10^5)$场比赛。</p>
+<p>如果截止到第$i-1$天的胜率小于第$i$天的胜率，乐乐就会在第$i$天心情变得更好。否则，他的心情会变得更糟。其中，第$i$天的胜率指的是，当$i&#x3D;0$时为$0$，否则指的是第$i$天之前玩游戏赢的次数总和除以第$i$天之前玩游戏的次数总和所得的值。</p>
+<p>已知这$n$天，总共赢了$K(0 \le K\le \sum a_i)$次。求乐乐最多能开心多少天。</p>
+<p>正常这题我们能想到开二维：第一维表示当前天数，第二维表示使用胜利数，存储的是最多快乐天数。</p>
+<p>那这复杂度显然没法接受，其实我在赛时就想到了把存的最多快乐天数变成第二维“快乐天数”，之前的第二维变成存储的“达成最少使用的胜利数”，但我很快就意识到了他的正确性问题——他不一定是单调的（即有时候用的胜利数多了可能反而快乐天数少了），因此赛时我就陷入了瓶颈，最终没能切掉。</p>
+<p>其实最后再观察观察，用不等式的一些变换就可以得到“真分数分子分母同加值会变大”这一结论，那只要他达不到1，如果拥有的胜利数多于最少需要的，我们尽可能把他往后堆，一旦先填满后面的几天，他的值就绝对是单增的，因此特判1的情况后他的正确性就可以保证了，至于1的情况那就只会快乐1天因为一直相等。</p>
+<h2 id="数量级小结论"><a href="#数量级小结论" class="headerlink" title="数量级小结论"></a>数量级小结论</h2><p>把一个数划分成若干数的不同方案数我们称之为划分数，30的划分数在2000左右，50的划分数在$2*10^6$左右</p>
+<h2 id="图上小结论"><a href="#图上小结论" class="headerlink" title="图上小结论"></a>图上小结论</h2><p>有些时候我们可能需要求一棵树上的一个连着某些点的这么一个连通分量的大小，那我们可以考虑按随意顺序但是单环状求一遍两点之间路径（注意并非两两之间路径），即求包含$a_1,a_2,a_3…a_n$的连通分量的边数，我们可以求$a_1a_2,a_2a_3,a_3a_4…a_{n-1}a_n,a_na_1$之间的的路径数之和再除2（因为每条边刚好被算两遍），点数则为边数+1。</p>
+<p>例：</p>
+<p>给定一棵树，节点有编号，给最大边数，求连续编号在同一边数不超过最大边数的联通块的最多连续编号数量。</p>
+<p>考虑尺取法，即一个一个点加入联通块，记录$ans&#x3D;总边数<em>2$的值，加入时选新加点$u$在树上DFN序的前驱和后继（最后与最前互为前驱和后继），$ans+&#x3D;Dis_{pre,u}+Dis_{u,nxt}-Dis_{pre,nxt}$，除去点时同理只需把符号反转，ans为总边数</em>2的性质依然成立。</p>
+<p>正确性？</p>
+<p>dfs时它走的顺序都是“前-x-后”，那它自然不会重复加一段已经加两遍且没被删一次的边（图为错误示范，即从已有红点选中绿点的并非黄点DFN序的前驱和后继，红边为原有加入的边，紫边为删掉的边，灰边为新加的边，棕边为重复加的边）<img src="/image/%E5%B0%8F%E6%8A%80%E5%B7%A7%EF%BC%881%EF%BC%89/1689517965298.png" alt="1689517965298"></p>
+
+  </div>
+  
+  <hr>
+  <h3><span class="iconfont icon-history" style="padding-right: 5px;font-size: 1em;"></span>修订记录</h3>
+  <div class="post-history-list"><ol reversed>
+    
+      <li class="post-history-item">
+        2023年7月17日 第2次修订 
+      </li>
+    
+      <li class="post-history-item">
+        2023年7月16日 创建文章 
+      </li>
+     
+  </ol></div>
+
+  <div class="post-footer">
+  <hr>
+  
+    <div class="next-post">
+      <span class="iconfont icon-arrow-left-circle"></span> 
+      <a href="/2023/07/17/杂题选讲/小技巧（2）/">
+        小技巧（2）
+      </a>
+    </div>
+  
+  
+    <div class="prev-post">
+      <a href="/2023/07/21/DP/斜率优化/">
+        斜率优化
+      </a> 
+      <span class="iconfont icon-arrow-right-circle"></span>
+    </div>
+  
+</div>
+</article>
+
+
+  <div id="vcomments"></div>
+
+
+    </main>
+  </body>
+  <div class="side-button">
+  
+    <div id="comment-button" class="button" title="Valine Comment" >
+      <span class="iconfont icon-comment"></span>
+    </div>
+  
+    <div id="darkmode-button" class="button" title="Switch between day and night" >
+      <span class="iconfont icon-moonbyueliang"></span>
+    </div>
+  
+    <div id="top" class="button" title="Back to top" >
+      <span class="iconfont icon-arrowup"></span>
+    </div>
+  
+</div>
+
+  <footer id="footer" style="margin: 3em 0 2em 0; text-align: center; line-height: 1.4em">
+
+  
+  <div class="visitor">
+    <span id="/2023/12/14/表达式树/" class="leancloud_visitors" data-flag-title="表达式树">
+      <span class="iconfont icon-eye"></span>
+      <span class="post-meta-item-text">Page view </span>
+      <i class="leancloud-visitors-count"></i>
+    </span>
+  </div>
+
+
+
+  
+    <span class="post-wordcount iconfont icon-text"></span>
+    全站约 7,313 字
+  
+
+  <div class="license" style="padding: 0 10px;">
+    <span>
+    本站所有文章遵循许可协议 
+    <a target="_blank" rel="license noreferrer noopener" href="https://creativecommons.org/licenses/by-sa/4.0/">
+      Creative Commons Attribution-ShareAlike 4.0 International License
+    </a>
+    </span>
+  </div>
+
+  <div class="credit">
+    <span>Themed
+    <a href="https://github.com/sshwy/hexo-theme-essence" target="_blank" rel="noreferrer noopener">Essence v1.10.0</a>
+    | Powered by <a href="http://hexo.io" target="_blank" rel="noreferrer noopener">Hexo</a></span>
+  </div>
+
+  
+
+  <div class="copyright">
+    <span>Copyright &copy; 2019-2021 - fluffy-stoat</span>
+  </div>
+
+</footer>
+
+  
+  <script type="text/javascript">
+    var valine_path = 'error'
+  </script>
+
+  
+<script src="/js/ssimple.js?20250905.js"></script>
+<script src="https://pv.sohu.com/cityjson?ie=utf-8.js" defer></script>
+
+
+
+  <script type="text/javascript">
+    loadComments();
+    function loadComments() {
+      if (typeof Valine === 'undefined') {
+        var getScript = (options) => {
+          var script = document.createElement('script');
+          script.defer = true;
+          script.crossOrigin = 'anonymous';
+          Object.keys(options).forEach((key) => {
+            script[key] = options[key];
+          });
+          document.body.appendChild(script);
+        };
+        getScript({
+          src: 'https://cdn.jsdelivr.net/npm/valine',
+          onload: function () {
+            newValine();
+          }
+        });
+      } else {
+        newValine();
+      }
+    }
+    function newValine() {
+      if (valine_path[valine_path.length - 1] != '\/') valine_path = valine_path + '\/';
+      new Valine({
+        el: '#vcomments',
+        appId: '',
+        appKey: '',
+        placeholder: '',
+        serverURLs: '',
+        visitor: true,
+        recordIP: true,
+        requiredFields: ['nick', 'mail'],
+        avatar: 'retro',
+        path: valine_path
+      });
+    }
+  </script>
+
+</html>
