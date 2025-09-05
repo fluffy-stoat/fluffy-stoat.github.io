@@ -8,7 +8,7 @@
   <meta name="keywords" content="">
   <meta name="description" content="Ov-">
   <meta name="generator" content="Hexo 7.3.0">
-  <title>USACO18DEC Balance Beam P - fluffy-stoat&#39;s Notes</title>
+  <title>Kruskal重构树 - fluffy-stoat&#39;s Notes</title>
   <link rel="shortcut icon" href="/images/favicon.ico" />
   
 <link rel="stylesheet" href="/css/ssimple.css?20250905.css">
@@ -81,16 +81,16 @@
     <main class="main">
       <article class="post">
   <div class="post-title">
-    <h1 class="page-title">USACO18DEC Balance Beam P</h1>
+    <h1 class="page-title">Kruskal重构树</h1>
   </div>
   <div class="post-meta">
   <div class="post-info">
-    <span class="post-info-item post-time" title="2023年10月25日星期三早上7点45分 (CST+08:00)">
-      <span class="info-icon iconfont icon-time"></span>更新于 2023年10月25日
+    <span class="post-info-item post-time" title="2025年9月5日星期五晚上9点37分 (CST+08:00)">
+      <span class="info-icon iconfont icon-time"></span>更新于 2025年9月5日
     </span>
     
       <span class="icon infosep"></span><span class="post-info-item post-wordcount">
-        <span class="info-icon iconfont icon-text"></span>约 435 字
+        <span class="info-icon iconfont icon-text"></span>约 335 字
       </span>
     
     
@@ -107,8 +107,8 @@
         <span class="icon smallarrow"></span>
     
         
-        <a class="directory" href="/directory/%E6%9D%82%E9%A2%98%E9%80%89%E8%AE%B2/">
-          杂题选讲
+        <a class="directory" href="/directory/%E5%9B%BE%E8%AE%BA/">
+          图论
         </a>
         <span class="icon smallarrow"></span>
     
@@ -135,29 +135,37 @@
 
 
   <div class="post-content">
-    <p>在一个链上，如果每次以等概率向右或向左走，走到$0$或$L$就停，那么在下标为$i$的点走到两边的概率分别为$\frac{L-i}{L}$和$\frac{i}{L}$。</p>
-<p>证明：</p>
-<p>设$f_i$为走到$L$的概率，则$$f_0&#x3D;0,f_L&#x3D;1,f_i&#x3D;\frac{f_{i-1}+f_{i+1}}{2}$$，可以发现这是个等差数列的形式（每个值都是前面和后面的均值，正好把这个数列分成了$L$份$\frac{1}{L}$）</p>
-<p>那我们知道他从一个点开始肯定不是要让自己啥也得不到，那必然就会在到达他两边的某个点时停下，得分的期望可以用之前我们推出来的式子算，设$i$的两个停止点下标分别为$a,b$，那$i$的期望收获也就是 $$ \cfrac{v_a(b-i)}{b-a}+\cfrac{v_b(i-a)}{b-a} $$</p>
-<p>这个东西可以转化为：点$(a,v_a)$到点$(b,v_b)$的直线与直线$x&#x3D;i$的交点的纵坐标，于是我们可以发现这些停止点一定来源于整体的上凸包上，因为不是的话一定有更优的来替代它。</p>
-<p>ps:最开始做的时候不会决策，只知道像高斯消元一样列方程，结果列出来个$f_i&#x3D;max(v_i,\frac{f_{i-1}+f_{i+1}}{2})$就寄了。</p>
+    <p>Kruskal算法是把边从小到大加入，最终把所有点连成一个联通块。</p>
+<p>Kruskal重构树就是同样把边从小到大加入，只不过是重构了一张图，新建了一些节点，这些节点有点权，对应的恰好是原图上的边。</p>
+<p>这样我们就可以利用这新图的一些性质，比较关键的是 <strong>原图上的两点在重构树上的LCA的点权就是他们在原图的最小生成树上的简单路径的边权最大值</strong> 。</p>
+<p>比较拗口，不过证明还是比较简单的，毕竟越浅的点意味着这个点是越晚加入的，也就意味着它的边权是它所在重构树上子树内点所构成的联通块内最大的。</p>
 
   </div>
   
+  <hr>
+  <h3><span class="iconfont icon-history" style="padding-right: 5px;font-size: 1em;"></span>修订记录</h3>
+  <div class="post-history-list"><ol reversed>
+    
+      <li class="post-history-item">
+        2025年9月5日 创建文章 
+      </li>
+     
+  </ol></div>
+
   <div class="post-footer">
   <hr>
   
     <div class="next-post">
       <span class="iconfont icon-arrow-left-circle"></span> 
-      <a href="/2023/10/12/DP/同余最短路/">
-        同余最短路
+      <a href="/2023/12/14/表达式树/">
+        表达式树
       </a>
     </div>
   
   
     <div class="prev-post">
-      <a href="/2023/10/25/杂题选讲/模拟退火/">
-        模拟退火
+      <a href="/2025/09/05/图论/网络流/">
+        网络流
       </a> 
       <span class="iconfont icon-arrow-right-circle"></span>
     </div>
@@ -191,7 +199,7 @@
 
   
   <div class="visitor">
-    <span id="/2023/12/14/表达式树/" class="leancloud_visitors" data-flag-title="表达式树">
+    <span id="/2025/09/05/杂题选讲/[USACO18DEC] Balance Beam P/" class="leancloud_visitors" data-flag-title="USACO18DEC Balance Beam P">
       <span class="iconfont icon-eye"></span>
       <span class="post-meta-item-text">Page view </span>
       <i class="leancloud-visitors-count"></i>
@@ -202,7 +210,7 @@
 
   
     <span class="post-wordcount iconfont icon-text"></span>
-    全站约 7,313 字
+    全站约 35,700 字
   
 
   <div class="license" style="padding: 0 10px;">
@@ -230,7 +238,7 @@
 
   
   <script type="text/javascript">
-    var valine_path = 'error'
+    var valine_path = '/2025/09/05/图论/Kruskal重构树/'
   </script>
 
   

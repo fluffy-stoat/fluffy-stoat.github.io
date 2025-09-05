@@ -8,7 +8,7 @@
   <meta name="keywords" content="">
   <meta name="description" content="Ov-">
   <meta name="generator" content="Hexo 7.3.0">
-  <title>网络流 - fluffy-stoat&#39;s Notes</title>
+  <title>USACO18DEC Balance Beam P - fluffy-stoat&#39;s Notes</title>
   <link rel="shortcut icon" href="/images/favicon.ico" />
   
 <link rel="stylesheet" href="/css/ssimple.css?20250905.css">
@@ -81,16 +81,16 @@
     <main class="main">
       <article class="post">
   <div class="post-title">
-    <h1 class="page-title">网络流</h1>
+    <h1 class="page-title">USACO18DEC Balance Beam P</h1>
   </div>
   <div class="post-meta">
   <div class="post-info">
-    <span class="post-info-item post-time" title="2023年8月13日星期日晚上11点58分 (CST+08:00)">
-      <span class="info-icon iconfont icon-time"></span>更新于 2023年8月13日
+    <span class="post-info-item post-time" title="2025年9月5日星期五晚上9点37分 (CST+08:00)">
+      <span class="info-icon iconfont icon-time"></span>更新于 2025年9月5日
     </span>
     
       <span class="icon infosep"></span><span class="post-info-item post-wordcount">
-        <span class="info-icon iconfont icon-text"></span>约 573 字
+        <span class="info-icon iconfont icon-text"></span>约 514 字
       </span>
     
     
@@ -107,8 +107,8 @@
         <span class="icon smallarrow"></span>
     
         
-        <a class="directory" href="/directory/%E5%9B%BE%E8%AE%BA/">
-          图论
+        <a class="directory" href="/directory/%E6%9D%82%E9%A2%98%E9%80%89%E8%AE%B2/">
+          杂题选讲
         </a>
         <span class="icon smallarrow"></span>
     
@@ -120,7 +120,7 @@
    
 
   
-    <div class="toc">
+    <div class="toc" style="display: none;" >
   
     <h2 class="toc-title">
       <span
@@ -128,16 +128,19 @@
        style="font-size: 1em;padding-right: 5px;"></span
       >文章目录</h2>
     <div class="toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#dinic"><span class="toc-number">1.</span> <span class="toc-text">$dinic$</span></a></li></ol>
+      
     </div>
     <hr />
   </div>
 
 
   <div class="post-content">
-    <h2 id="dinic"><a href="#dinic" class="headerlink" title="$dinic$"></a>$dinic$</h2><p>前向星建图，便于找反边（编号^$1$），$bfs$给图分层，让他只能流入更低的层，顺便判断出图是否已经阻断无法再流向汇点，$head$每次复制一份，复制出的那一份每次遍历过一条已经被阻塞的边，就直接跟着$next$改到直接指向下一条边，$bfs$时再重新改回初始状态，这是和复杂度的正确性有关的，防止在单点处被卡成$O(E^2)$，$dfs$返回值是这一次又松弛出多少流量。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">ll bfs() &#123;</span><br><span class="line">    queue&lt;int&gt; q;</span><br><span class="line">    fp(i, 1, n * 2 * k) dep[i] = inf, nh[i] = head[i];</span><br><span class="line">    dep[s] = 0;</span><br><span class="line">    q.push(s);</span><br><span class="line">    while (!q.empty()) &#123;</span><br><span class="line">        ll x = q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        for (int i = head[x]; i; i = e[i].next) &#123;</span><br><span class="line">            if (e[i].w &amp;&amp; dep[e[i].to] == inf)</span><br><span class="line">                dep[e[i].to] = dep[x] + 1, q.push(e[i].to);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // cout&lt;&lt;dep[t]&lt;&lt;endl;</span><br><span class="line">    return dep[t] != inf;</span><br><span class="line">&#125;</span><br><span class="line">ll dfs(ll x, ll fl) &#123;</span><br><span class="line">    // cout&lt;&lt;x&lt;&lt;endl;</span><br><span class="line">    if (x == t)</span><br><span class="line">        return fl;</span><br><span class="line">    ll res = 0;</span><br><span class="line">    for (ll&amp; i = nh[x]; i &amp;&amp; fl; i = e[i].next) &#123;</span><br><span class="line">        if (dep[e[i].to] == dep[x] + 1) &#123;</span><br><span class="line">            ll w = dfs(e[i].to, min(fl, e[i].w));</span><br><span class="line">            fl -= w;</span><br><span class="line">            res += w;</span><br><span class="line">            e[i].w -= w;</span><br><span class="line">            e[i ^ 1].w += w;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line">//主函数内</span><br><span class="line">int main()&#123;</span><br><span class="line">  while(bfs())ans+=dfs();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度$O(V^2E)$</p>
+    <p>在一个链上，如果每次以等概率向右或向左走，走到$0$或$L$就停，那么在下标为$i$的点走到两边的概率分别为$\frac{L-i}{L}$和$\frac{i}{L}$。</p>
+<p>证明：</p>
+<p>设$f_i$为走到$L$的概率，则$$f_0&#x3D;0,f_L&#x3D;1,f_i&#x3D;\frac{f_{i-1}+f_{i+1}}{2}$$，可以发现这是个等差数列的形式（每个值都是前面和后面的均值，正好把这个数列分成了$L$份$\frac{1}{L}$）</p>
+<p>那我们知道他从一个点开始肯定不是要让自己啥也得不到，那必然就会在到达他两边的某个点时停下，得分的期望可以用之前我们推出来的式子算，设$i$的两个停止点下标分别为$a,b$，那$i$的期望收获也就是 $$ \cfrac{v_a(b-i)}{b-a}+\cfrac{v_b(i-a)}{b-a} $$</p>
+<p>这个东西可以转化为：点$(a,v_a)$到点$(b,v_b)$的直线与直线$x&#x3D;i$的交点的纵坐标，于是我们可以发现这些停止点一定来源于整体的上凸包上，因为不是的话一定有更优的来替代它。</p>
+<p>ps:最开始做的时候不会决策，只知道像高斯消元一样列方程，结果列出来个$f_i&#x3D;max(v_i,\frac{f_{i-1}+f_{i+1}}{2})$就寄了。</p>
 
   </div>
   
@@ -146,7 +149,7 @@
   <div class="post-history-list"><ol reversed>
     
       <li class="post-history-item">
-        2023年8月13日 创建文章 
+        2025年9月5日 创建文章 
       </li>
      
   </ol></div>
@@ -156,18 +159,11 @@
   
     <div class="next-post">
       <span class="iconfont icon-arrow-left-circle"></span> 
-      <a href="/2023/08/13/生活杂记/thoughts/梁老师生日特辑/">
-        梁老师生日特辑
+      <a href="/2025/09/05/图论/网络流/">
+        网络流
       </a>
     </div>
   
-  
-    <div class="prev-post">
-      <a href="/2023/08/14/生活杂记/diary/8-14/">
-        8-14
-      </a> 
-      <span class="iconfont icon-arrow-right-circle"></span>
-    </div>
   
 </div>
 </article>
@@ -198,7 +194,7 @@
 
   
   <div class="visitor">
-    <span id="/2023/12/14/表达式树/" class="leancloud_visitors" data-flag-title="表达式树">
+    <span id="/2025/09/05/杂题选讲/[USACO18DEC] Balance Beam P/" class="leancloud_visitors" data-flag-title="USACO18DEC Balance Beam P">
       <span class="iconfont icon-eye"></span>
       <span class="post-meta-item-text">Page view </span>
       <i class="leancloud-visitors-count"></i>
@@ -209,7 +205,7 @@
 
   
     <span class="post-wordcount iconfont icon-text"></span>
-    全站约 7,313 字
+    全站约 35,700 字
   
 
   <div class="license" style="padding: 0 10px;">
@@ -237,7 +233,7 @@
 
   
   <script type="text/javascript">
-    var valine_path = 'error'
+    var valine_path = '/2025/09/05/杂题选讲/[USACO18DEC] Balance Beam P/'
   </script>
 
   
