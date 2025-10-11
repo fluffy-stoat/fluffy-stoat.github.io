@@ -167,36 +167,39 @@
 
 
   <div class="post-content">
-    <p>$$<br>g(n) &#x3D;\sum_{i&#x3D;1}^n{n\choose i}f(i) \Longleftrightarrow f(n)&#x3D;\sum_{i&#x3D;1}^n (-1)^{n-i}{n \choose i}g(i)<br>$$</p>
-<p>先把左边代入右边消掉</p>
-<p>$$<br>f(n)&#x3D;\sum_{i&#x3D;1}^{n}(-1)^{n-i}{n\choose i}*\sum_{j&#x3D;1}^{i}{i\choose j}f(j)<br>$$</p>
-<p>换一下式子的顺序</p>
-<p>$$<br>f(n)&#x3D;\sum_{j&#x3D;1}^{n}f(j)*\sum_{i&#x3D;j}^{n}(-1)^{n-i}{n\choose i}{i\choose j}<br>$$</p>
-<p>拆开组合数并化简</p>
-<p>$$<br>\sum_{i&#x3D;j}^{n}(-1)^{n-i}\cfrac{n!}{i!(n-i)!}\cfrac{i!}{j!(i-j)!}<br>$$</p>
-<p>$$<br>&#x3D;\sum_{i&#x3D;j}^{n}(-1)^{n-i}\cfrac{n!}{j!(n-i)!(i-j)!}<br>$$</p>
-<p>$$<br>&#x3D;\cfrac{n!}{j!}\sum_{i&#x3D;j}^{n}\cfrac{(-1)^{n-i}}{(n-i)!(i-j)!}<br>$$</p>
-<p>内乘外除$(n-j)!$</p>
-<p>$$<br>&#x3D;\cfrac{n!}{j!(n-j)!}\sum_{i&#x3D;j}^{n}(-1)^{n-i}\cfrac{(n-j)!}{(n-i)!(i-j)!}<br>$$</p>
-<p>把分数转回组合数</p>
-<p>$$<br>&#x3D;{n\choose j}\sum_{i&#x3D;j}^{n}(-1)^{n-i}{n-j\choose n-i}<br>$$</p>
-<p>因为</p>
-<p>$$<br>f(n)&#x3D;\sum_{j&#x3D;1}^{n}[j&#x3D;&#x3D;n]*f(j)<br>$$</p>
-<p>所以就相当于证明：</p>
-<p>$$<br>{n\choose j}\sum_{i&#x3D;j}^{n}(-1)^{n-i}{n-j\choose n-i}&#x3D;\begin{cases}</p>
-<p>0\quad(j&lt;n)\ </p>
-<p>1\quad(j&#x3D;n) \</p>
-<p>\end{cases}<br>$$</p>
-<p>证明：</p>
+    <script type="math/tex; mode=display">
+g(n) =\sum_{i=1}^n{n\choose i}f(i) \Longleftrightarrow f(n)=\sum_{i=1}^n (-1)^{n-i}{n \choose i}g(i)</script><p>先把左边代入右边消掉</p>
+<script type="math/tex; mode=display">
+f(n)=\sum_{i=1}^{n}(-1)^{n-i}{n\choose i}*\sum_{j=1}^{i}{i\choose j}f(j)</script><p>换一下式子的顺序</p>
+<script type="math/tex; mode=display">
+f(n)=\sum_{j=1}^{n}f(j)*\sum_{i=j}^{n}(-1)^{n-i}{n\choose i}{i\choose j}</script><p>拆开组合数并化简</p>
+<script type="math/tex; mode=display">
+\sum_{i=j}^{n}(-1)^{n-i}\cfrac{n!}{i!(n-i)!}\cfrac{i!}{j!(i-j)!}</script><script type="math/tex; mode=display">
+=\sum_{i=j}^{n}(-1)^{n-i}\cfrac{n!}{j!(n-i)!(i-j)!}</script><script type="math/tex; mode=display">
+=\cfrac{n!}{j!}\sum_{i=j}^{n}\cfrac{(-1)^{n-i}}{(n-i)!(i-j)!}</script><p>内乘外除$(n-j)!$</p>
+<script type="math/tex; mode=display">
+=\cfrac{n!}{j!(n-j)!}\sum_{i=j}^{n}(-1)^{n-i}\cfrac{(n-j)!}{(n-i)!(i-j)!}</script><p>把分数转回组合数</p>
+<script type="math/tex; mode=display">
+={n\choose j}\sum_{i=j}^{n}(-1)^{n-i}{n-j\choose n-i}</script><p>因为</p>
+<script type="math/tex; mode=display">
+f(n)=\sum_{j=1}^{n}[j==n]*f(j)</script><p>所以就相当于证明：</p>
+<script type="math/tex; mode=display">
+{n\choose j}\sum_{i=j}^{n}(-1)^{n-i}{n-j\choose n-i}=\begin{cases}
+
+0\quad(j<n)\\ 
+
+1\quad(j=n) \\
+
+\end{cases}</script><p>证明：</p>
 <ul>
-<li><p>$j&#x3D;n$ 时：</p>
+<li><p>$j=n$ 时：</p>
 <p>原式等于：</p>
 </li>
 </ul>
-<p>$$<br>{n\choose n}(-1)^0{0\choose0}&#x3D;1<br>$$</p>
-<ul>
-<li><p>$j\not &#x3D; n$ 时：</p>
-<p>有$\sum_{i&#x3D;j}^{n}(-1)^{n-i}{n-j\choose n-i}&#x3D;0$</p>
+<script type="math/tex; mode=display">
+{n\choose n}(-1)^0{0\choose0}=1</script><ul>
+<li><p>$j\not = n$ 时：</p>
+<p>有$\sum_{i=j}^{n}(-1)^{n-i}{n-j\choose n-i}=0$</p>
 <p>证明：</p>
 <p>当 $n-j$ 为奇数时，</p>
 <p>取值正好有 $n-j+1$ 个，且正好两两相反可以抵消，也就是 ${n-j\choose n-i}$ 和 ${n-j\choose n-j-(n-i)}$，他们值相等，但系数相反；</p>
@@ -204,12 +207,12 @@
 <p>根据二项式定理：</p>
 </li>
 </ul>
-<p>$$<br>\sum_{i&#x3D;0}^n C(n,i) (-1)^{n-i}<br>$$</p>
-<p>$$<br>&#x3D; \sum_{i&#x3D;0}^n C(n,i) (-1)^{n-i}1^i<br>$$</p>
-<p>$$<br>&#x3D;(1-1)^n<br>$$</p>
-<p>$$<br>&#x3D;0^n<br>$$</p>
-<p>$$<br>&#x3D;0<br>$$</p>
-<p>反演得证</p>
+<script type="math/tex; mode=display">
+\sum_{i=0}^n C(n,i) (-1)^{n-i}</script><script type="math/tex; mode=display">
+= \sum_{i=0}^n C(n,i) (-1)^{n-i}1^i</script><script type="math/tex; mode=display">
+=(1-1)^n</script><script type="math/tex; mode=display">
+=0^n</script><script type="math/tex; mode=display">
+=0</script><p>反演得证</p>
 
   </div>
   
@@ -235,8 +238,8 @@
   
   
     <div class="prev-post">
-      <a href="/2023/04/02/数学/中国剩余定理/">
-        中国剩余定理
+      <a href="/2023/04/02/数学/二项式定理/">
+        二项式定理
       </a> 
       <span class="iconfont icon-arrow-right-circle"></span>
     </div>

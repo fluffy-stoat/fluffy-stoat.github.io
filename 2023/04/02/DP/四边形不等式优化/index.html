@@ -173,31 +173,31 @@
 <p>事实上，对于一个二元函数是否满足四边形不等式可以通过更简便的方法证明：</p>
 <p><strong>设 $w_{x,y}$ 为定义在整数集合上的二元函数。若 $\forall l\lt  r : w_{l,r+1}+w_{l+1,r}\le w_{l,r}+w_{l+1,r+1}$ ，则称函数 $w_{x,y}$ 满足四边形不等式。</strong></p>
 <p>正确性的证明如下：</p>
-<p>$$<br>\forall a\lt c:w_{a,c}+w_{a+1,c+1}\le w_{a+1,c}+w_{a,c+1}<br>$$</p>
-<p>$$<br>\forall a+1\lt c:w_{a+1,c}+w_{a+2,c+1}\le w_{a+1,c+1}+w_{a+2,c}<br>$$</p>
-<p>两式相加，可得</p>
-<p>$$<br>w_{a,c}+w_{a+2,c+1}\le w_{a+2,c}+w_{a,c+1}<br>$$</p>
-<p>以类似第二个式子的方法，可以以不断加的方法把a这一边推广至：</p>
-<p>$$<br>\forall a\le b\le c:w_{a,c}+w_{b,c+1}\le w_{b,c}+w_{a,c+1}<br>$$</p>
-<p>用同样的方法也可以扩展c这一边至：</p>
-<p>$$<br>\forall a\le b\le c\le d:w_{a,c}+w_{b,d}\le w_{b,c}+w_{a,d}<br>$$</p>
-<p>证毕。</p>
+<script type="math/tex; mode=display">
+\forall a\lt c:w_{a,c}+w_{a+1,c+1}\le w_{a+1,c}+w_{a,c+1}</script><script type="math/tex; mode=display">
+\forall a+1\lt c:w_{a+1,c}+w_{a+2,c+1}\le w_{a+1,c+1}+w_{a+2,c}</script><p>两式相加，可得</p>
+<script type="math/tex; mode=display">
+w_{a,c}+w_{a+2,c+1}\le w_{a+2,c}+w_{a,c+1}</script><p>以类似第二个式子的方法，可以以不断加的方法把a这一边推广至：</p>
+<script type="math/tex; mode=display">
+\forall a\le b\le c:w_{a,c}+w_{b,c+1}\le w_{b,c}+w_{a,c+1}</script><p>用同样的方法也可以扩展c这一边至：</p>
+<script type="math/tex; mode=display">
+\forall a\le b\le c\le d:w_{a,c}+w_{b,d}\le w_{b,c}+w_{a,d}</script><p>证毕。</p>
 <p>（下面的证明会用到一些式子的合并以及非等量但是满足单调性的代换，比上面的更复杂一点，请注意其运用）</p>
-<h3 id="1D-1D-dp的优化"><a href="#1D-1D-dp的优化" class="headerlink" title="1D&#x2F;1D dp的优化"></a>1D&#x2F;1D dp的优化</h3><p><del>笔者其实并不知道什么是1D&#x2F;1D dp，可能是一维dp吧</del></p>
+<h3 id="1D-1D-dp的优化"><a href="#1D-1D-dp的优化" class="headerlink" title="1D/1D dp的优化"></a>1D/1D dp的优化</h3><p><del>笔者其实并不知道什么是1D/1D dp，可能是一维dp吧</del></p>
 <p>对于某些形如：</p>
-<p>$$<br>f_{i}&#x3D;\min_{j&#x3D;1}^{i}(f_j+w_{j,i})<br>$$</p>
-<p>的$dp$，设对于一个位置 $i$，他的最优决策选取的位置为 $k_{i}$，如果 $w_{i,j}$ 满足四边形不等式，则有</p>
-<p>$$<br>\forall i\le j : k_i\le k_j<br>$$</p>
-<p>证明:<br>假设 $\forall i\le j :k_j\lt k_i$ ,那么 $k_j\lt k_i\lt i\le j$ ,根据四边形不等式有：</p>
-<p>$$<br>w_{k_j,i}+w_{k_i,j}\le w_{k_j,j}+w_{k_i,i}<br>$$</p>
-<p>又因为 $k_j$ 是 $j$ 的最优决策点，所以有：</p>
-<p>$$<br>f_{k_j}+w_{k_j,j}\le f_{k_i}+w_{k_i,j}<br>$$</p>
-<p>两式相加，可得：</p>
-<p>$$<br>f_{k_j}+w_{k_j,i}\le f_{k_i}+w_{k_i,i}<br>$$</p>
-<p>这也就与 $k_i$ 为 $i$ 的最优决策点相冲突，<br>因此 $k_i$ 必然小于 $k_j$ 。</p>
+<script type="math/tex; mode=display">
+f_{i}=\min_{j=1}^{i}(f_j+w_{j,i})</script><p>的$dp$，设对于一个位置 $i$，他的最优决策选取的位置为 $k_{i}$，如果 $w_{i,j}$ 满足四边形不等式，则有</p>
+<script type="math/tex; mode=display">
+\forall i\le j : k_i\le k_j</script><p>证明:<br>假设 $\forall i\le j :k_j\lt k_i$ ,那么 $k_j\lt k_i\lt i\le j$ ,根据四边形不等式有：</p>
+<script type="math/tex; mode=display">
+w_{k_j,i}+w_{k_i,j}\le w_{k_j,j}+w_{k_i,i}</script><p>又因为 $k_j$ 是 $j$ 的最优决策点，所以有：</p>
+<script type="math/tex; mode=display">
+f_{k_j}+w_{k_j,j}\le f_{k_i}+w_{k_i,j}</script><p>两式相加，可得：</p>
+<script type="math/tex; mode=display">
+f_{k_j}+w_{k_j,i}\le f_{k_i}+w_{k_i,i}</script><p>这也就与 $k_i$ 为 $i$ 的最优决策点相冲突，<br>因此 $k_i$ 必然小于 $k_j$ 。</p>
 <p>证毕。</p>
 <p>那么既然知道了最优决策点的位置的单调性，我们便可以在每一次遍历到新的下标 $i$ 时，利用二分找到以自己为最优决策点的最靠前的位置并更新后面的全部，这样时间复杂度就从$\Theta(n^2)$变为了$\Theta(n\log n)$</p>
-<h3 id="2D-1D-dp的优化"><a href="#2D-1D-dp的优化" class="headerlink" title="2D&#x2F;1D dp的优化"></a>2D&#x2F;1D dp的优化</h3><p><del>然而笔者也不知道什么是2D&#x2F;1D dp，或许可以理解为二维的dp吧</del></p>
+<h3 id="2D-1D-dp的优化"><a href="#2D-1D-dp的优化" class="headerlink" title="2D/1D dp的优化"></a>2D/1D dp的优化</h3><p><del>然而笔者也不知道什么是2D/1D dp，或许可以理解为二维的dp吧</del></p>
 <p>对于经典的区间$dp$，我们往往需要枚举区间左右端点和中间的断点，那它的复杂度自然就是显而易见的$\Theta(n^3)$</p>
 <p>然而有些时候，你会发现这个三次方是过不了的，可能需要消掉一个$n$，在这种情况下，我们可以考虑去证明他的决策单调性（如果你对证明有疑问，大可先去看看结论起的用处再回来看证明）<a target="_blank" rel="noopener" href="https://oi-wiki.org/dp/opt/quadrangle/#%E5%8C%BA%E9%97%B4%E7%B1%BB2d1d%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8" title="OIwiki">OIwiki</a></p>
 <p>再引入一个概念：</p>

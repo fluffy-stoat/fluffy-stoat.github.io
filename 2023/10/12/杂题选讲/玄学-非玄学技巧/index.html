@@ -171,12 +171,12 @@
 <h3 id="离线？"><a href="#离线？" class="headerlink" title="离线？"></a>离线？</h3><p>如果要处理多个询问，只要不强制在线，一定要提醒自己：<strong>可以离线！可以离线！！可以离线！！！</strong>，离线后排序可能会导致复杂度骤降！！！</p>
 <h3 id="正难则反？"><a href="#正难则反？" class="headerlink" title="正难则反？"></a>正难则反？</h3><p>正着跑、倒着跑、正着跑正着算、倒着跑倒着算，<br>别都已经倒着跑了还正着算，可能会使你的复杂度从$O(n)$飙升至$O(n!)$<br>例：<a target="_blank" rel="noopener" href="http://www.nfls.com.cn:10611/contest/977/problem/1">一个教训</a></p>
 <p>代码能短就短，最令人难受的就是像写大数据结构一样的代码，原因主要并不是害怕写长代码，而是短代码确实好看，而且易于挑错，平时积累一些奇技淫巧用上也无所谓，只要比赛能用，自己能快速懂，再奇怪也无所谓。</p>
-<h3 id="一元排序处理出来是错的？"><a href="#一元排序处理出来是错的？" class="headerlink" title="一元排序处理出来是错的？"></a>一元排序处理出来是错的？</h3><p>试试二元排序，比如按a和b的max、min、+、-、*、&#x2F;……<br>例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1601D">按max</a></p>
+<h3 id="一元排序处理出来是错的？"><a href="#一元排序处理出来是错的？" class="headerlink" title="一元排序处理出来是错的？"></a>一元排序处理出来是错的？</h3><p>试试二元排序，比如按a和b的max、min、+、-、*、/……<br>例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1601D">按max</a></p>
 <h3 id="图上期望只会解方程？"><a href="#图上期望只会解方程？" class="headerlink" title="图上期望只会解方程？"></a>图上期望只会解方程？</h3><p>却发现三方会T？试试推式子，觉得是无穷循环嵌套？自己调用自己为什么不能直接在等式另一边直接用自己呢？<br>比如</p>
-<p>$$<br>X_i&#x3D;P_i<em>A+P_i</em>(1-P_i)<em>A+P_i</em>(1-P_i)^2*A+…<br>$$</p>
-<p>可以转化为</p>
-<p>$$<br>X_i&#x3D;P_i*A+(1-P_i)*X_i<br>$$</p>
-<p>(来自于<a target="_blank" rel="noopener" href="http://www.nfls.com.cn:10611/contest/1000/problem/3">例题</a>的<a target="_blank" rel="noopener" href="http://www.nfls.com.cn:10611/article/754">官方题解</a>)</p>
+<script type="math/tex; mode=display">
+X_i=P_i*A+P_i*(1-P_i)*A+P_i*(1-P_i)^2*A+...</script><p>可以转化为</p>
+<script type="math/tex; mode=display">
+X_i=P_i*A+(1-P_i)*X_i</script><p>(来自于<a target="_blank" rel="noopener" href="http://www.nfls.com.cn:10611/contest/1000/problem/3">例题</a>的<a target="_blank" rel="noopener" href="http://www.nfls.com.cn:10611/article/754">官方题解</a>)</p>
 <h3 id="卡常吗？"><a href="#卡常吗？" class="headerlink" title="卡常吗？"></a>卡常吗？</h3><p>$scanf$和$printf$其实不慢，快读并不能解决大问题，实际上要注意的是：<br>剪枝：这就是看情况。<br>取模：主要是如果不爆$longlong$就少取模，像加法什么的，最后总起来取一个就好了，甚至可以判断大于模数就减，至于乘什么的，超过俩相乘就还是要取模的。<br>最关键的不能算是卡常而是优化复杂度的——预处理阶乘、逆元等做到$O(1)$查询来省去一个$log$。</p>
 <h3 id="更好的替代品"><a href="#更好的替代品" class="headerlink" title="更好的替代品"></a>更好的替代品</h3><p>$ddp$的核心就在于他的线段树维护矩阵乘法上，得已支持快速修改和查询，有妹有什么比矩阵更快的呢？其实是有的，对于一些每一位的<strong>转移都相同</strong>且有<strong>交换律</strong>的，我们有——生成函数，听着挺高大上，就是多项式，$FFT$啥的可以快速维护，不过暴力卷也是不劣的，至于更改，就是递推或者解方程，也没啥好说的，不过时间和空间都优了不少。</p>
 <h2 id="玄学部分"><a href="#玄学部分" class="headerlink" title="玄学部分"></a>玄学部分</h2><p>每隔$30min$~$1h$就去上个厕所、洗把脸，可能会有灵感</p>
@@ -206,8 +206,8 @@
   
   
     <div class="prev-post">
-      <a href="/2023/10/12/杂题选讲/小技巧（9）/">
-        小技巧（9）
+      <a href="/2023/10/12/杂题选讲/高维前缀和/">
+        高维前缀和
       </a> 
       <span class="iconfont icon-arrow-right-circle"></span>
     </div>

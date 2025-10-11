@@ -168,31 +168,29 @@
 
   <div class="post-content">
     <p>解一组同余方程</p>
-<p>$$<br>\left{\begin{array}{c}x\equiv a_1(\mod m_1)\x\equiv a_2(\mod m_2)\\cdots\x\equiv a_k(\mod m_k)\\end{array}\right.<br>$$</p>
-<h2 id="Type1"><a href="#Type1" class="headerlink" title="Type1"></a>Type1</h2><p>设 $m_1,m_2,m_3\quad\cdots\quad m_k$ 两两互质，</p>
+<script type="math/tex; mode=display">
+\left\{\begin{array}{c}x\equiv a_1(\mod m_1)\\x\equiv a_2(\mod m_2)\\\cdots\\x\equiv a_k(\mod m_k)\\\end{array}\right.</script><h2 id="Type1"><a href="#Type1" class="headerlink" title="Type1"></a>Type1</h2><p>设 $m_1,m_2,m_3\quad\cdots\quad m_k$ 两两互质，</p>
 <p>那我们考虑对他们一一解决</p>
-<p>前置小提示：由于所有的模数两两互质，所以最终式的模数即可为$\prod_{i&#x3D;1}^{k}{m_i}$</p>
+<p>前置小提示：由于所有的模数两两互质，所以最终式的模数即可为$\prod_{i=1}^{k}{m_i}$</p>
 <p>对于任意一个式子 $j$ 我们想让他在其他式子不受影响的同时被满足，那便需要累计的答案加上的数是其他式子模数的倍数，同时还要使得此式变得成立，</p>
-<p>那这个加数必然含有一个因子为 $\cfrac{\prod_{i&#x3D;1}^{k}{m_i}} {m_j}$ ,用 $exgcd$ 求其在模 $m_j$ 下的逆元，再把他们和 $a_j$ 相乘，便可得到这个加数。</p>
-<p>最小正整数解即为累计的答案（若要其他解可以不断加 $\prod_{i&#x3D;1}^{k}{m_i}$ 来得到）</p>
+<p>那这个加数必然含有一个因子为 $\cfrac{\prod_{i=1}^{k}{m_i}} {m_j}$ ,用 $exgcd$ 求其在模 $m_j$ 下的逆元，再把他们和 $a_j$ 相乘，便可得到这个加数。</p>
+<p>最小正整数解即为累计的答案（若要其他解可以不断加 $\prod_{i=1}^{k}{m_i}$ 来得到）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#define ll long long </span><br><span class="line"></span><br><span class="line">ll a[K],m[K],k,ans,M=1,x,y;</span><br><span class="line"></span><br><span class="line">for(int i=1;i&lt;=k;i++)&#123;</span><br><span class="line"></span><br><span class="line">    M*=m[i];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for(int i=1;i&lt;=k;i++)&#123;</span><br><span class="line"></span><br><span class="line">    ans=(ans+(M/m[i]*a[i]/exgcd(M/m[i],m[i])*x)%M)%M;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 <p>时间复杂度 $\Theta(n\log n)$</p>
 <h2 id="Type2"><a href="#Type2" class="headerlink" title="Type2"></a>Type2</h2><p>我们现在来看一下更平凡的情况：</p>
 <p>模数不一定两两互质，在这种情况下方程组不一定有解</p>
 <p>我们可以把式子两两合并，</p>
 <p>设最终的解为$x$,我们可以把式子转化为</p>
-<p>$$<br>x&#x3D;a_i+m_ix_i<br>$$</p>
-<p> 的形式</p>
+<script type="math/tex; mode=display">
+x=a_i+m_ix_i</script><p> 的形式</p>
 <p>每次取出其中的两个合并，便等价于求解</p>
-<p>$$<br>m_ix_i+m_jx_j&#x3D;a_j-a_i<br>$$</p>
-<p>此时用 $exgcd$ 求逆元的同时可以判断有无解</p>
-<p>把得到的解代回原式 $(x&#x3D;a_i+m_ix_i)$ 得到的 $x$ 即为新方程的余数，下面记作 $x’$</p>
+<script type="math/tex; mode=display">
+m_ix_i+m_jx_j=a_j-a_i</script><p>此时用 $exgcd$ 求逆元的同时可以判断有无解</p>
+<p>把得到的解代回原式 $(x=a_i+m_ix_i)$ 得到的 $x$ 即为新方程的余数，下面记作 $x’$</p>
 <p>新方程的模数为 $lcm(m_i,m_j)$</p>
 <p>得到的式子即为</p>
-<p>$$<br>x\equiv x’\pmod {lcm(m_i,m_j)}<br>$$</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#define ll long long </span><br><span class="line"></span><br><span class="line">ll a[K],m[K],k,ans,x,y,nowm,nowa;</span><br><span class="line"></span><br><span class="line">nowm=m[1],nowa=a[1];</span><br><span class="line"></span><br><span class="line">for(int i=2;i&lt;=k;i++)&#123;</span><br><span class="line"></span><br><span class="line">    if((a[i]-nowa)%exgcd(nowm,m[i],x,y))&#123;</span><br><span class="line"></span><br><span class="line">        cout&lt;&lt;-1&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">        return 0;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    nowa+=nowm*x;</span><br><span class="line"></span><br><span class="line">    nowm=lcm(nowm,m[i]);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cout&lt;&lt;nowa&lt;&lt;endl;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<script type="math/tex; mode=display">
+x\equiv x'\pmod {lcm(m_i,m_j)}</script><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#define ll long long </span><br><span class="line"></span><br><span class="line">ll a[K],m[K],k,ans,x,y,nowm,nowa;</span><br><span class="line"></span><br><span class="line">nowm=m[1],nowa=a[1];</span><br><span class="line"></span><br><span class="line">for(int i=2;i&lt;=k;i++)&#123;</span><br><span class="line"></span><br><span class="line">    if((a[i]-nowa)%exgcd(nowm,m[i],x,y))&#123;</span><br><span class="line"></span><br><span class="line">        cout&lt;&lt;-1&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">        return 0;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    nowa+=nowm*x;</span><br><span class="line"></span><br><span class="line">    nowm=lcm(nowm,m[i]);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cout&lt;&lt;nowa&lt;&lt;endl;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>时间复杂度 $\Theta(n\log n)$</p>
 <p>番外：南外讲座的大佬说这个貌似模意义下的拉格朗日插值 </p>
 <p>$QwQ$</p>
@@ -214,8 +212,8 @@
   
     <div class="next-post">
       <span class="iconfont icon-arrow-left-circle"></span> 
-      <a href="/2023/04/02/数学/二项式反演/">
-        二项式反演
+      <a href="/2023/04/02/数学/二项式定理/">
+        二项式定理
       </a>
     </div>
   

@@ -170,10 +170,16 @@
     <p><del>warning，这不是一篇新手向博文，最适人群为学过但忘记此算法，本篇将帮助你的回忆</del></p>
 <h2 id="一、导入"><a href="#一、导入" class="headerlink" title="一、导入"></a>一、导入</h2><p>顾名思义，动态动态规划（ddp）就是支持修改操作的dp问题，常见于带修改的树形dp，一般使用线段树套广义矩阵乘法来实现</p>
 <h2 id="二、前置知识"><a href="#二、前置知识" class="headerlink" title="二、前置知识"></a>二、前置知识</h2><p><del>线段树、矩阵乘法、树剖什么的肯定要会鸭</del><br>在处理树形问题前，我们先解决简化版的线性问题——<br><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4513" title="例题：小白逛公园">例题：小白逛公园</a><br><del>这个题当然大部分人只会关注他的奇妙纯线段树解</del><br>这是一个最大子段和问题，如果不带修，我们绝大多数情况下是用dp直接解决的，<br>但是，请仔细思考一下，矩阵乘法其实是一类求解过程，它虽然看起来复杂，但却可以做到与很多算法等价，譬如$floyd$求最短路，<br>当然，它也可以用于求解最大子段和问题，我们维护两个值$f_i$，$g_i$，分别表示$i$之前的最大子段和 和 包含且恰好截至$i$的最大子段和，那么我们就可以根据<strong>广义</strong>矩阵乘法的定义设计出相应的矩阵，<br>即答案矩阵为：</p>
-<p>$$<br>\begin{bmatrix}<br>f&amp;g&amp;0<br>\end{bmatrix}<br>$$</p>
-<p>而过程中的矩阵则为：</p>
-<p>$$<br>\begin{bmatrix}<br>0&amp;-\infty&amp;-\infty\<br>a_i&amp;a_i&amp;-\infty\<br>0&amp;0&amp;0<br>\end{bmatrix}<br>$$</p>
-<p>这道题让我们算出区间的最大子段和，那乍一看我们的做法就没法得到答案了，其实不然<br>根据广义矩阵乘法的结合律，我们可以把计算过程拆分为初始答案矩阵和过程答案矩阵，我们发现，只要每次快速查询出一段区间的过程矩阵积，用初始的答案矩阵乘上即可，<br>那带修、支持区间查询，自然就需要线段树来维护，本题就做完了。</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+f&g&0
+\end{bmatrix}</script><p>而过程中的矩阵则为：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+0&-\infty&-\infty\\
+a_i&a_i&-\infty\\
+0&0&0
+\end{bmatrix}</script><p>这道题让我们算出区间的最大子段和，那乍一看我们的做法就没法得到答案了，其实不然<br>根据广义矩阵乘法的结合律，我们可以把计算过程拆分为初始答案矩阵和过程答案矩阵，我们发现，只要每次快速查询出一段区间的过程矩阵积，用初始的答案矩阵乘上即可，<br>那带修、支持区间查询，自然就需要线段树来维护，本题就做完了。</p>
 
   </div>
   
@@ -192,15 +198,15 @@
   
     <div class="next-post">
       <span class="iconfont icon-arrow-left-circle"></span> 
-      <a href="/2023/03/29/数学/stl/">
-        第二类斯特林数
+      <a href="/2023/03/29/数据结构/stntree/">
+        斯坦纳树
       </a>
     </div>
   
   
     <div class="prev-post">
-      <a href="/2023/04/02/数学/二项式定理/">
-        二项式定理
+      <a href="/2023/04/02/数学/欧拉函数与欧拉定理/">
+        欧拉函数与欧拉定理
       </a> 
       <span class="iconfont icon-arrow-right-circle"></span>
     </div>

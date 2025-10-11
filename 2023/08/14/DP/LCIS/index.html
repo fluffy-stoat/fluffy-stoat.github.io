@@ -167,9 +167,11 @@
 
 
   <div class="post-content">
-    <p>是个模板，<br>不是非常大的一个知识点，<br>最长上升公共子序列，<br>直接说最快做法N^2吧，<br>就是外循环i枚举第一个数组里遍历到的下标，<br>内循环j枚举第二个数组里遍历到的下标，<br>f[i][j]存a遍历到i,b遍历到j时的最长上升公共子序列长度，<br>如果a[i]!&#x3D;b[j],f[i][j]&#x3D;f[i-1][j]，显然因为i对答案没有贡献，所以加不加他都一样，<br>如果a[i]&#x3D;&#x3D;b[j],f[i][j]&#x3D;max(f[i-1][k])+1,k&lt;j,就是从前面找一个最大的转移，这就比较显然了，<br>每次进行一遍内循环就计一次内循环里之前遇到的b[j]值小于a[i]值的最大f[i-1][j]，<br>如果遇到a[i]&#x3D;&#x3D;b[j]就把f[i][j]更为记录的那个值+1，<br>正确性有保证因为前面记录的是合法的f值，也就是每一位都相互对应，而且算进答案的b[k]只有比a[i]小的，自然与b[k]相等且对应的a[l]比a[i]小，b[k]也比等于a[i]的b[j]小，如此得到的答案依然合法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for(int i=1;i&lt;=n;i++)&#123;</span><br><span class="line">    ll tmp=0;</span><br><span class="line">    for(int j=1;j&lt;=m;j++)&#123;</span><br><span class="line">        f[i][j]=f[i-1][j];</span><br><span class="line">        if(b[j]&lt;a[i])tmp=max(tmp,f[i-1][j]);</span><br><span class="line">        if(a[i]==b[j])f[i][j]=tmp+1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>很简短，<br>这就没了</p>
+    <p>是个模板，<br>不是非常大的一个知识点，<br>最长上升公共子序列，<br>直接说最快做法N^2吧，<br>就是外循环i枚举第一个数组里遍历到的下标，<br>内循环j枚举第二个数组里遍历到的下标，<br>f[i][j]存a遍历到i,b遍历到j时的最长上升公共子序列长度，<br>如果a[i]!=b[j],f[i][j]=f[i-1][j]，显然因为i对答案没有贡献，所以加不加他都一样，<br>如果a[i]==b[j],f[i][j]=max(f[i-1][k])+1,k<j,就是从前面找一个最大的转移，这就比较显然了，
+每次进行一遍内循环就计一次内循环里之前遇到的b[j]值小于a[i]值的最大f[i-1][j]，
+如果遇到a[i]==b[j]就把f[i][j]更为记录的那个值+1，
+正确性有保证因为前面记录的是合法的f值，也就是每一位都相互对应，而且算进答案的b[k]只有比a[i]小的，自然与b[k]相等且对应的a[l]比a[i]小，b[k]也比等于a[i]的b[j]小，如此得到的答案依然合法。
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for(int i=1;i&lt;=n;i++)&#123;</span><br><span class="line">    ll tmp=0;</span><br><span class="line">    for(int j=1;j&lt;=m;j++)&#123;</span><br><span class="line">        f[i][j]=f[i-1][j];</span><br><span class="line">        if(b[j]&lt;a[i])tmp=max(tmp,f[i-1][j]);</span><br><span class="line">        if(a[i]==b[j])f[i][j]=tmp+1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>很简短，<br>这就没了</p>
 <hr>
 <p>顺带一提，<br>最长上升子序列有个lower_bound做法，<br>但我更喜欢值域线段树在线维护区间最大值，<br>线段树上存的是以下标为结尾的最长长度，<br>求答案就query前缀就好了，<br>然后再把当前的答案再插回去，<br>没准魔改一下树状数组可以去除大常数的问题。</p>
 <p>最长公共子序列好像只有N^2?</p>
@@ -198,8 +200,8 @@
   
   
     <div class="prev-post">
-      <a href="/2023/10/12/数据结构/“线段树分治”/">
-        “线段树分治”
+      <a href="/2023/10/12/杂题选讲/错误合集/">
+        错误合集
       </a> 
       <span class="iconfont icon-arrow-right-circle"></span>
     </div>

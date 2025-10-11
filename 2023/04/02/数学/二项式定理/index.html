@@ -167,32 +167,34 @@
 
 
   <div class="post-content">
-    <p>$$<br>(x+y)^n&#x3D;\sum_{i&#x3D;0}^{n}{n\choose i}x^{n-i}y^{i}&#x3D;\sum_{i&#x3D;0}^{n}{n\choose i}x^{i}y^{n-i}<br>$$</p>
-<p>证明：数学归纳法：</p>
-<p>下界：当$\displaystyle n&#x3D;1$时，$(x+y)^1&#x3D;\sum_{i&#x3D;0}^{1}{1\choose i}x^{1-i}y^{i}&#x3D;{1\choose 0}x^{1}y^{0}+{1\choose 1}x^{0}y^{1}&#x3D;x+y$，此时定理显然成立</p>
+    <script type="math/tex; mode=display">
+(x+y)^n=\sum_{i=0}^{n}{n\choose i}x^{n-i}y^{i}=\sum_{i=0}^{n}{n\choose i}x^{i}y^{n-i}</script><p>证明：数学归纳法：</p>
+<p>下界：当$\displaystyle n=1$时，$(x+y)^1=\sum_{i=0}^{1}{1\choose i}x^{1-i}y^{i}={1\choose 0}x^{1}y^{0}+{1\choose 1}x^{0}y^{1}=x+y$，此时定理显然成立</p>
 <p>那么当 $n$ 成立时，对于 $n+1$ 有：</p>
-<p>$$<br>(x+y)^{n+1}<br>$$</p>
-<p>拆出一个$(x+y)$</p>
-<p>$$<br>&#x3D;x(x+y)^n+y(x+y)^n<br>$$</p>
-<p>按定理代入</p>
-<p>$$<br>&#x3D;x\sum_{i&#x3D;0}^{n}{n\choose i}x^{n-i}y^{i}+y\sum_{j&#x3D;0}^{n}{n\choose j}x^{n-j}y^{j}<br>$$</p>
-<p>把 $x$ 和 $y$ 乘进去</p>
-<p>$$<br>&#x3D;\sum_{i&#x3D;0}^{n}{n\choose i}x^{n-i+1}y^{i}+\sum_{j&#x3D;0}^{n}{n\choose j}x^{n-j}y^{j+1}<br>$$</p>
-<p>取出首和尾</p>
-<p>$$<br>&#x3D;x^{n+1}+\sum_{i&#x3D;1}^{n}{n\choose i}x^{n-i+1}y^{i}+\sum_{j&#x3D;0}^{n-1}{n\choose j}x^{n-j}y^{j+1}+y^{n+1}<br>$$</p>
-<p>把 $j$ 换成 $i-1$</p>
-<p>$$<br>&#x3D;x^{n+1}+\sum_{i&#x3D;1}^{n}{n\choose i}x^{n-i+1}y^{i}+\sum_{i&#x3D;1}^{n}{n\choose i-1}x^{n-i+1}y^{i}+y^{n+1}<br>$$</p>
-<p>合并两个sum</p>
-<p>$$<br>&#x3D;x^{n+1}+\sum_{i&#x3D;1}^{n}\bigg({n\choose i}+{n\choose i-1}\bigg)x^{n-i+1}y^{i}+y^{n+1}<br>$$</p>
-<p>根据组合数的性质合并两个组合数的和[^1]</p>
-<p>$$<br>&#x3D;x^{n+1}+\sum_{i&#x3D;1}^{n}{n+1\choose i}x^{n-i+1}y^{i}+y^{n+1}<br>$$</p>
-<p>因为 $1&#x3D;{n+1\choose 0}$ 且 $1&#x3D;{n+1\choose n+1}$ ，所以可以把 $x^{n+1}$ 和 $y^{n+1}$ 合并入sum</p>
-<p>$$<br>&#x3D;\sum_{i&#x3D;0}^{n+1}{n+1\choose i}x^{(n+1)-i}y^{i}<br>$$</p>
-<p>显然仍符合二项式定理</p>
+<script type="math/tex; mode=display">
+(x+y)^{n+1}</script><p>拆出一个$(x+y)$</p>
+<script type="math/tex; mode=display">
+=x(x+y)^n+y(x+y)^n</script><p>按定理代入</p>
+<script type="math/tex; mode=display">
+=x\sum_{i=0}^{n}{n\choose i}x^{n-i}y^{i}+y\sum_{j=0}^{n}{n\choose j}x^{n-j}y^{j}</script><p>把 $x$ 和 $y$ 乘进去</p>
+<script type="math/tex; mode=display">
+=\sum_{i=0}^{n}{n\choose i}x^{n-i+1}y^{i}+\sum_{j=0}^{n}{n\choose j}x^{n-j}y^{j+1}</script><p>取出首和尾</p>
+<script type="math/tex; mode=display">
+=x^{n+1}+\sum_{i=1}^{n}{n\choose i}x^{n-i+1}y^{i}+\sum_{j=0}^{n-1}{n\choose j}x^{n-j}y^{j+1}+y^{n+1}</script><p>把 $j$ 换成 $i-1$</p>
+<script type="math/tex; mode=display">
+=x^{n+1}+\sum_{i=1}^{n}{n\choose i}x^{n-i+1}y^{i}+\sum_{i=1}^{n}{n\choose i-1}x^{n-i+1}y^{i}+y^{n+1}</script><p>合并两个sum</p>
+<script type="math/tex; mode=display">
+=x^{n+1}+\sum_{i=1}^{n}\bigg({n\choose i}+{n\choose i-1}\bigg)x^{n-i+1}y^{i}+y^{n+1}</script><p>根据组合数的性质合并两个组合数的和<sup><a href="#fn_1" id="reffn_1">1</a></sup></p>
+<script type="math/tex; mode=display">
+=x^{n+1}+\sum_{i=1}^{n}{n+1\choose i}x^{n-i+1}y^{i}+y^{n+1}</script><p>因为 $1={n+1\choose 0}$ 且 $1={n+1\choose n+1}$ ，所以可以把 $x^{n+1}$ 和 $y^{n+1}$ 合并入sum</p>
+<script type="math/tex; mode=display">
+=\sum_{i=0}^{n+1}{n+1\choose i}x^{(n+1)-i}y^{i}</script><p>显然仍符合二项式定理</p>
 <p>证毕</p>
 <p>其实还有更简单的感性理解一下：</p>
 <p>考虑组合数定义，每种二项式得到的次数可以看作你在 $n$ 个数对中选出其中一项的指数个的不同的方案数，也就是${n\choose 指数}$，加起来就成了整个式子。</p>
-<p>[^1]: ${n\choose m}&#x3D;{n-1\choose m}+{n-1\choose m-1}$，$n$个数里选$k$个数的方案数即：选当前这个数和不选这个数的方案数的和</p>
+<blockquote id="fn_1">
+<sup>1</sup>. ${n\choose m}={n-1\choose m}+{n-1\choose m-1}$，$n$个数里选$k$个数的方案数即：选当前这个数和不选这个数的方案数的和<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
 
   </div>
   
@@ -211,15 +213,15 @@
   
     <div class="next-post">
       <span class="iconfont icon-arrow-left-circle"></span> 
-      <a href="/2023/03/29/DP/ddp/">
-        浅谈ddp
+      <a href="/2023/04/02/数学/二项式反演/">
+        二项式反演
       </a>
     </div>
   
   
     <div class="prev-post">
-      <a href="/2023/04/02/数学/欧拉函数与欧拉定理/">
-        欧拉函数与欧拉定理
+      <a href="/2023/04/02/数学/中国剩余定理/">
+        中国剩余定理
       </a> 
       <span class="iconfont icon-arrow-right-circle"></span>
     </div>
