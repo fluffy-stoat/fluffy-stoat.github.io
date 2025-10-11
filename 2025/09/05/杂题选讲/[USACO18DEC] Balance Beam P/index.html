@@ -169,10 +169,10 @@
   <div class="post-content">
     <p>在一个链上，如果每次以等概率向右或向左走，走到$0$或$L$就停，那么在下标为$i$的点走到两边的概率分别为$\frac{L-i}{L}$和$\frac{i}{L}$。</p>
 <p>证明：</p>
-<p>设$f<em>i$为走到$L$的概率，则$$f_0=0,f_L=1,f_i=\frac{f</em>{i-1}+f_{i+1}}{2}$$，可以发现这是个等差数列的形式（每个值都是前面和后面的均值，正好把这个数列分成了$L$份$\frac{1}{L}$）</p>
+<p>设$f_i$为走到$L$的概率，则<script type="math/tex">f_0=0,f_L=1,f_i=\frac{f_{i-1}+f_{i+1}}{2}</script>，可以发现这是个等差数列的形式（每个值都是前面和后面的均值，正好把这个数列分成了$L$份$\frac{1}{L}$）</p>
 <p>那我们知道他从一个点开始肯定不是要让自己啥也得不到，那必然就会在到达他两边的某个点时停下，得分的期望可以用之前我们推出来的式子算，设$i$的两个停止点下标分别为$a,b$，那$i$的期望收获也就是 <script type="math/tex">\cfrac{v_a(b-i)}{b-a}+\cfrac{v_b(i-a)}{b-a}</script></p>
 <p>这个东西可以转化为：点$(a,v_a)$到点$(b,v_b)$的直线与直线$x=i$的交点的纵坐标，于是我们可以发现这些停止点一定来源于整体的上凸包上，因为不是的话一定有更优的来替代它。</p>
-<p>ps:最开始做的时候不会决策，只知道像高斯消元一样列方程，结果列出来个$f<em>i=max(v_i,\frac{f</em>{i-1}+f_{i+1}}{2})$就寄了。</p>
+<p>ps:最开始做的时候不会决策，只知道像高斯消元一样列方程，结果列出来个$f_i=max(v_i,\frac{f_{i-1}+f_{i+1}}{2})$就寄了。</p>
 
   </div>
   
@@ -233,7 +233,7 @@
 
   
   <div class="visitor">
-    <span id="/2025/09/11/生活杂记/The most important/ToMyDearistFriendAgain/" class="leancloud_visitors" data-flag-title="ToMyDearistFriendAgain">
+    <span id="/2025/10/11/test/" class="leancloud_visitors" data-flag-title="test">
       <span class="iconfont icon-eye"></span>
       <span class="post-meta-item-text">Page view </span>
       <i class="leancloud-visitors-count"></i>

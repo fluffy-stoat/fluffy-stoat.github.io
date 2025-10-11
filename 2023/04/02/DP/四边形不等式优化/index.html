@@ -169,9 +169,9 @@
   <div class="post-content">
     <h2 id="四边形不等式与蒙日矩阵"><a href="#四边形不等式与蒙日矩阵" class="headerlink" title="四边形不等式与蒙日矩阵"></a>四边形不等式与蒙日矩阵</h2><p>首先讲一下这玩意的用处，个人认为这是在理解四边形不等式优化中最能引入的点：限制状态的枚举，也就是所谓的<strong>决策单调性</strong><del>（看起来像废话因为所有优化都是在限制枚举的范围）</del></p>
 <p>对不同类型的$dp$，如果它的状态转移满足四边形不等式，其实我们都可以以某种方式得到决策单调性，所以尽管下面讲的证明比较具有局限性，但是他的应用往往是需要一些想像力的。</p>
-<p>设 $w<em>{x,y}$ 为定义在整数集合上的二元函数。若 $\forall l\le l’\le r’\le r : w</em>{l,r’}+w<em>{l’,r}\le w</em>{l,r}+w<em>{l’,r’}$ ，<del>可记作交叉小于包含</del>，则称函数 $w</em>{x,y}$ 满足四边形不等式。</p>
+<p>设 $w_{x,y}$ 为定义在整数集合上的二元函数。若 $\forall l\le l’\le r’\le r : w_{l,r’}+w_{l’,r}\le w_{l,r}+w_{l’,r’}$ ，<del>可记作交叉小于包含</del>，则称函数 $w_{x,y}$ 满足四边形不等式。</p>
 <p>事实上，对于一个二元函数是否满足四边形不等式可以通过更简便的方法证明：</p>
-<p><strong>设 $w<em>{x,y}$ 为定义在整数集合上的二元函数。若 $\forall l\lt  r : w</em>{l,r+1}+w<em>{l+1,r}\le w</em>{l,r}+w<em>{l+1,r+1}$ ，则称函数 $w</em>{x,y}$ 满足四边形不等式。</strong></p>
+<p><strong>设 $w_{x,y}$ 为定义在整数集合上的二元函数。若 $\forall l\lt  r : w_{l,r+1}+w_{l+1,r}\le w_{l,r}+w_{l+1,r+1}$ ，则称函数 $w_{x,y}$ 满足四边形不等式。</strong></p>
 <p>正确性的证明如下：</p>
 <script type="math/tex; mode=display">
 \forall a\lt c:w_{a,c}+w_{a+1,c+1}\le w_{a+1,c}+w_{a,c+1}</script><script type="math/tex; mode=display">
@@ -186,7 +186,7 @@ w_{a,c}+w_{a+2,c+1}\le w_{a+2,c}+w_{a,c+1}</script><p>以类似第二个式子�
 <h3 id="1D-1D-dp的优化"><a href="#1D-1D-dp的优化" class="headerlink" title="1D/1D dp的优化"></a>1D/1D dp的优化</h3><p><del>笔者其实并不知道什么是1D/1D dp，可能是一维dp吧</del></p>
 <p>对于某些形如：</p>
 <script type="math/tex; mode=display">
-f_{i}=\min_{j=1}^{i}(f_j+w_{j,i})</script><p>的$dp$，设对于一个位置 $i$，他的最优决策选取的位置为 $k<em>{i}$，如果 $w</em>{i,j}$ 满足四边形不等式，则有</p>
+f_{i}=\min_{j=1}^{i}(f_j+w_{j,i})</script><p>的$dp$，设对于一个位置 $i$，他的最优决策选取的位置为 $k_{i}$，如果 $w_{i,j}$ 满足四边形不等式，则有</p>
 <script type="math/tex; mode=display">
 \forall i\le j : k_i\le k_j</script><p>证明:<br>假设 $\forall i\le j :k_j\lt k_i$ ,那么 $k_j\lt k_i\lt i\le j$ ,根据四边形不等式有：</p>
 <script type="math/tex; mode=display">
@@ -201,7 +201,7 @@ f_{k_j}+w_{k_j,i}\le f_{k_i}+w_{k_i,i}</script><p>这也就与 $k_i$ 为 $i$ 的
 <p>对于经典的区间$dp$，我们往往需要枚举区间左右端点和中间的断点，那它的复杂度自然就是显而易见的$\Theta(n^3)$</p>
 <p>然而有些时候，你会发现这个三次方是过不了的，可能需要消掉一个$n$，在这种情况下，我们可以考虑去证明他的决策单调性（如果你对证明有疑问，大可先去看看结论起的用处再回来看证明）<a target="_blank" rel="noopener" href="https://oi-wiki.org/dp/opt/quadrangle/#%E5%8C%BA%E9%97%B4%E7%B1%BB2d1d%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8" title="OIwiki">OIwiki</a></p>
 <p>再引入一个概念：</p>
-<p>区间包含单调性：若对于任意的 $l\le l’\le r’\le r$ ，满足 $w<em>{l’,r’}\le w</em>{l,r}$ 则称 $w_{l,r}$ 满足区间包含单调性。</p>
+<p>区间包含单调性：若对于任意的 $l\le l’\le r’\le r$ ，满足 $w_{l’,r’}\le w_{l,r}$ 则称 $w_{l,r}$ 满足区间包含单调性。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>其实我们真正在使用四边形不等式优化的时候，首先是要想到他最开始的状态转移方程，由于很有可能有多种非正解的设计方式，所以我们其实应该不止揪着一种去想他的优化<del>（头够铁也未必不行）</del>，多设计几种，看看那种类似我们提到过的模型，再试一试证明它的取值函数满足四边形不等式<del>（哪怕是打个表看看是否满足决策单调性）</del>，如果可以，而时间复杂度又符合，那肯定就做完了$qwq$</p>
 
   </div>
@@ -221,8 +221,8 @@ f_{k_j}+w_{k_j,i}\le f_{k_i}+w_{k_i,i}</script><p>这也就与 $k_i$ 为 $i$ 的
   
     <div class="next-post">
       <span class="iconfont icon-arrow-left-circle"></span> 
-      <a href="/2023/04/02/数学/中国剩余定理/">
-        中国剩余定理
+      <a href="/2023/04/02/数学/二项式反演/">
+        二项式反演
       </a>
     </div>
   
@@ -263,7 +263,7 @@ f_{k_j}+w_{k_j,i}\le f_{k_i}+w_{k_i,i}</script><p>这也就与 $k_i$ 为 $i$ 的
 
   
   <div class="visitor">
-    <span id="/2025/09/11/生活杂记/The most important/ToMyDearistFriendAgain/" class="leancloud_visitors" data-flag-title="ToMyDearistFriendAgain">
+    <span id="/2025/10/11/test/" class="leancloud_visitors" data-flag-title="test">
       <span class="iconfont icon-eye"></span>
       <span class="post-meta-item-text">Page view </span>
       <i class="leancloud-visitors-count"></i>
